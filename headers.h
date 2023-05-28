@@ -11,6 +11,6 @@ void search_instruction();
 int select_instruction(char opcode);
 void search_operation(char instruct);
 void ldi_exec();
-void add_exec(); // TODO: Implement the sub statement
+void add_exec();
 void sub_exec(); // TODO: Implement the sub statement
 void print_output();
