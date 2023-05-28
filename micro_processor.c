@@ -3,20 +3,25 @@
 #include "headers.h"
 
 // NOTE: registrars
-char INSTRUCTION = 0x00;
-char ADD_INSTRUCTION = 0x00;
-char ARGUMENT = 0x00;
-char ACC = 0x00;
-char ADD_ROM = 0x00;
+unsigned char INSTRUCTION = 0x00;
+unsigned char ADD_INSTRUCTION = 0x00;
+unsigned char ARGUMENT = 0x00;
+unsigned char ACC = 0x00;
+unsigned char ADD_ROM = 0x00;
+unsigned char BR = 0x00;
+
+// NOTE: flag registers
+unsigned char CFLAG = 0;
+unsigned char ZFLAG = 0;
 
 // NOTE: counters
-int cycle = 0;
-int counter = 0;
-int level = 1;
+unsigned char cycle = 0;
+unsigned char counter = 0;
+unsigned char level = 1;
 
 // NOTE: rom memory simulator
 char rom[5] = {
-    0x04, 0x02, 0x04, 0x03, 0x00};
+    0x04, 0xFF, 0x05, 0x01, 0x00};
 
 void fetch_cycle()
 {
@@ -33,6 +38,7 @@ void fetch_cycle()
             break;
         case 3:
         case 4:
+        case 5:
             search_operation(INSTRUCTION);
             break;
         default:
@@ -96,6 +102,7 @@ void search_operation(char instruct)
         ldi_exec();
         break;
     case ADD:
+        add_exec();
         break;
     default:
         break;
@@ -121,6 +128,34 @@ void ldi_exec()
     }
 }
 
+void add_exec()
+{
+    if (cycle == 3)
+    {
+        ARGUMENT = rom[counter];
+        counter++;
+        cycle++;
+        return;
+    }
+
+    if (cycle == 4)
+    {
+        BR = ARGUMENT;
+        cycle++;
+        return;
+    }
+
+    if (cycle == 5)
+    {
+        CFLAG = (ACC + BR) >> 8;
+        ACC += BR;
+        ZFLAG = ACC ? 0 : 1;
+        print_output();
+        cycle = 0;
+        return;
+    }
+}
+
 void print_output()
 {
     printf("Cycle - %d\n", cycle);
@@ -128,6 +163,9 @@ void print_output()
     printf("ADD_ROM - 0x%.2x\n", ADD_ROM);
     printf("INSTRUCTION - 0x%.2x\n", INSTRUCTION);
     printf("ARGUMENT - 0x%.2x\n", ARGUMENT);
+    printf("BR - 0x%.2x\n", BR);
     printf("ACC - 0x%.2x\n", ACC);
+    printf("CFLAG - 0x%.2x\n", CFLAG);
+    printf("ZFLAG - 0x%.2x\n", ZFLAG);
     printf("\n");
 }
