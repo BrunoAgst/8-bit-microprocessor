@@ -6,6 +6,7 @@ Currently has one instruction implemented and two pending. New instructions will
 
 ## Instructions
 
+**LDA** -> pending...<br>
 **LDI** -> Add argument to accumulator. <br>
 **ADD** -> Add an argument to the accumulator. <br>
 **SUB** -> Subtracts argument from the accumulator.<br>
@@ -33,4 +34,5 @@ Currently has two flags:<br>
 
 - [x] LDI
 - [x] ADD
-- [ ] SUB
+- [x] SUB
+- [ ] LDA

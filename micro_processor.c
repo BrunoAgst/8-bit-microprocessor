@@ -20,8 +20,8 @@ unsigned char counter = 0;
 unsigned char level = 1;
 
 // NOTE: rom memory simulator
-char rom[5] = {
-    0x04, 0xFF, 0x05, 0x01, 0x00};
+char rom[7] = {
+    0x04, 0x10, 0x05, 0x01, 0x06, 0x11, 0x00};
 
 void fetch_cycle()
 {
@@ -86,6 +86,10 @@ int select_instruction(char opcode)
         INSTRUCTION = ADD;
         valid = 1;
         break;
+    case 0x06:
+        INSTRUCTION = SUB;
+        valid = 1;
+        break;
     default:
         level = 0;
         valid = 0;
@@ -104,6 +108,8 @@ void search_operation(char instruct)
     case ADD:
         add_exec();
         break;
+    case SUB:
+        sub_exec();
     default:
         break;
     }
@@ -149,6 +155,34 @@ void add_exec()
     {
         CFLAG = (ACC + BR) >> 8;
         ACC += BR;
+        ZFLAG = ACC ? 0 : 1;
+        print_output();
+        cycle = 0;
+        return;
+    }
+}
+
+void sub_exec()
+{
+    if (cycle == 3)
+    {
+        ARGUMENT = rom[counter];
+        counter++;
+        cycle++;
+        return;
+    }
+
+    if (cycle == 4)
+    {
+        BR = ARGUMENT;
+        cycle++;
+        return;
+    }
+
+    if (cycle == 5)
+    {
+        CFLAG = (ACC - BR) >> 8;
+        ACC -= BR;
         ZFLAG = ACC ? 0 : 1;
         print_output();
         cycle = 0;
