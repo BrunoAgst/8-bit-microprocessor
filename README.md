@@ -11,10 +11,10 @@ Currently has one instruction implemented and two pending. New instructions will
 | **LDI** | Add argument to accumulator             |
 | **ADD** | Add an argument to the accumulator      |
 | **SUB** | Subtracts argument from the accumulator |
+| **STA** | Add accumulator to UR                   |
 | **XOR** | Pending...                              |
 | **OR**  | Pending...                              |
 | **AND** | Pending...                              |
-| **STA** | Pending...                              |
 | **LDA** | Pending...                              |
 
 <br>
@@ -48,8 +48,8 @@ Currently has two flags:<br>
 - [x] LDI
 - [x] ADD
 - [x] SUB
+- [x] STA
 - [ ] LDA
-- [ ] STA
 - [ ] AND
 - [ ] OR
 - [ ] XOR

@@ -9,6 +9,7 @@ unsigned char ARGUMENT = 0x00;
 unsigned char ACC = 0x00;
 unsigned char ADD_ROM = 0x00;
 unsigned char BR = 0x00;
+unsigned char UR[10] = {0x00};
 
 // NOTE: flag registers
 unsigned char CFLAG = 0;
@@ -20,8 +21,8 @@ unsigned char counter = 0;
 unsigned char level = 1;
 
 // NOTE: rom memory simulator
-char rom[7] = {
-    0x04, 0x10, 0x05, 0x01, 0x06, 0x11, 0x00};
+char rom[9] = {
+    0x04, 0x10, 0x05, 0x02, 0x06, 0x11, 0x07, 0x02, 0x00};
 
 void fetch_cycle()
 {
@@ -90,6 +91,10 @@ int select_instruction(char opcode)
         INSTRUCTION = SUB;
         valid = 1;
         break;
+    case 0x07:
+        INSTRUCTION = STA;
+        valid = 1;
+        break;
     default:
         level = 0;
         valid = 0;
@@ -110,6 +115,10 @@ void search_operation(char instruct)
         break;
     case SUB:
         sub_exec();
+        break;
+    case STA:
+        sta_exec();
+        break;
     default:
         break;
     }
@@ -190,16 +199,59 @@ void sub_exec()
     }
 }
 
+void sta_exec()
+{
+    if (cycle == 3)
+    {
+        ARGUMENT = rom[counter];
+        counter++;
+        cycle++;
+        return;
+    }
+
+    if (cycle == 4)
+    {
+        if (ARGUMENT > 0x00 && ARGUMENT < 0x10)
+        {
+            UR[ARGUMENT] = ACC;
+            print_output();
+            cycle = 0;
+            return;
+        }
+        else
+        {
+            printf("Error UR 0x%.2x invalid", ARGUMENT);
+            print_output();
+            cycle = 0;
+            return;
+        }
+    }
+}
+
 void print_output()
 {
+    printf("\n******************************\n");
+    printf("Counters:\n");
     printf("Cycle - %d\n", cycle);
     printf("Counter - %d\n", counter);
+    printf("\nRegisters:\n");
     printf("ADD_ROM - 0x%.2x\n", ADD_ROM);
     printf("INSTRUCTION - 0x%.2x\n", INSTRUCTION);
     printf("ARGUMENT - 0x%.2x\n", ARGUMENT);
     printf("BR - 0x%.2x\n", BR);
     printf("ACC - 0x%.2x\n", ACC);
+    printf("UR0 - 0x%.2x\n", UR[0]);
+    printf("UR1 - 0x%.2x\n", UR[1]);
+    printf("UR2 - 0x%.2x\n", UR[2]);
+    printf("UR3 - 0x%.2x\n", UR[3]);
+    printf("UR4 - 0x%.2x\n", UR[4]);
+    printf("UR5 - 0x%.2x\n", UR[5]);
+    printf("UR6 - 0x%.2x\n", UR[6]);
+    printf("UR7 - 0x%.2x\n", UR[7]);
+    printf("UR8 - 0x%.2x\n", UR[8]);
+    printf("UR9 - 0x%.2x\n", UR[9]);
+    printf("\nFlags:\n");
     printf("CFLAG - 0x%.2x\n", CFLAG);
     printf("ZFLAG - 0x%.2x\n", ZFLAG);
-    printf("\n");
+    printf("\n******************************\n");
 }
