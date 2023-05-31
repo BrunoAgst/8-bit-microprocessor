@@ -6,32 +6,41 @@ Currently has one instruction implemented and two pending. New instructions will
 
 ## Instructions
 
-**LDA** -> pending...<br>
-**LDI** -> Add argument to accumulator. <br>
-**ADD** -> Add an argument to the accumulator. <br>
-**SUB** -> Subtracts argument from the accumulator.<br>
+| Item    | Description                             |
+| :------ | :-------------------------------------- |
+| **LDA** | pending...                              |
+| **LDI** | Add argument to accumulator             |
+| **ADD** | Add an argument to the accumulator      |
+| **SUB** | Subtracts argument from the accumulator |
+
 <br>
 
 ## Registrars
 
 Currently has five registrars:<br>
 
-**INSTRUCTION** -> Instruction. <br>
-**ADD_INSTRUCTION** -> Instruction address. <br>
-**ARGUMENT** -> Argument. <br>
-**ACC** -> Accumulator. <br>
-**ADD_ROM** -> Current address of rom memory. <br>
-**BR** -> 8-bit registers to aid in logical operations. <br>
+| Item                | Description                                  |
+| :------------------ | :------------------------------------------- |
+| **INSTRUCTION**     | Instruction                                  |
+| **ADD_INSTRUCTION** | Instruction address                          |
+| **ARGUMENT**        | Argument                                     |
+| **ACC**             | Accumulator                                  |
+| **ADD_ROM**         | Current address of rom memory                |
+| **BR**              | 8-bit registers to aid in logical operations |
+
 <br>
 
 ## Flags
 
 Currently has two flags:<br>
 
-**CFLAG** -> enabled if the result of some arithmetic operation is more than 8 bits or 255.<br>
-**ZFLAG** -> enabled if accumulator is zero .<br>
+| Item      | Description                                                                   |
+| :-------- | :---------------------------------------------------------------------------- |
+| **CFLAG** | enabled if the result of some arithmetic operation is more than 8 bits or 255 |
+| **ZFLAG** | enabled if accumulator is zero                                                |
 
-## To-do List
+<br>
+## To-do List:
 
 - [x] LDI
 - [x] ADD
