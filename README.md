@@ -8,10 +8,14 @@ Currently has one instruction implemented and two pending. New instructions will
 
 | Item    | Description                             |
 | :------ | :-------------------------------------- |
-| **LDA** | Pending...                              |
 | **LDI** | Add argument to accumulator             |
 | **ADD** | Add an argument to the accumulator      |
 | **SUB** | Subtracts argument from the accumulator |
+| **XOR** | Pending...                              |
+| **OR**  | Pending...                              |
+| **AND** | Pending...                              |
+| **STA** | Pending...                              |
+| **LDA** | Pending...                              |
 
 <br>
 
@@ -45,3 +49,7 @@ Currently has two flags:<br>
 - [x] ADD
 - [x] SUB
 - [ ] LDA
+- [ ] STA
+- [ ] AND
+- [ ] OR
+- [ ] XOR
