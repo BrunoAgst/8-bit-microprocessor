@@ -39,7 +39,6 @@ Currently has two flags:<br>
 | **CFLAG** | enabled if the result of some arithmetic operation is more than 8 bits or 255 |
 | **ZFLAG** | enabled if accumulator is zero                                                |
 
-<br>
 ## To-do List:
 
 - [x] LDI
