@@ -17,10 +17,11 @@ Currently has one instruction implemented and two pending. New instructions will
 Currently has five registrars:<br>
 
 **INSTRUCTION** -> Instruction. <br>
-**ADD_INSTRUCTION** -> Instruction address <br>
+**ADD_INSTRUCTION** -> Instruction address. <br>
 **ARGUMENT** -> Argument. <br>
 **ACC** -> Accumulator. <br>
 **ADD_ROM** -> Current address of rom memory. <br>
+**BR** -> 8-bit registers to aid in logical operations. <br>
 <br>
 
 ## Flags
