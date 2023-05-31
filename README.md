@@ -1,4 +1,4 @@
-# 8 Bit microprocessor
+# 8-Bit microprocessor
 
 This project is the construction of an 8-bit microprocessor. <br>
 Currently has one instruction implemented and two pending. New instructions will be added in the future.<br>
