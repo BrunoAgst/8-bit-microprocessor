@@ -31,6 +31,7 @@ Currently has five registrars:<br>
 | **ACC**             | Accumulator                                  |
 | **ADD_ROM**         | Current address of rom memory                |
 | **BR**              | 8-bit registers to aid in logical operations |
+| **UR**              | Ten registers for the user to use            |
 
 <br>
 
