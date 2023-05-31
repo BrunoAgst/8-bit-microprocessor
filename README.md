@@ -8,7 +8,7 @@ Currently has one instruction implemented and two pending. New instructions will
 
 | Item    | Description                             |
 | :------ | :-------------------------------------- |
-| **LDA** | pending...                              |
+| **LDA** | Pending...                              |
 | **LDI** | Add argument to accumulator             |
 | **ADD** | Add an argument to the accumulator      |
 | **SUB** | Subtracts argument from the accumulator |
@@ -36,8 +36,8 @@ Currently has two flags:<br>
 
 | Item      | Description                                                                   |
 | :-------- | :---------------------------------------------------------------------------- |
-| **CFLAG** | enabled if the result of some arithmetic operation is more than 8 bits or 255 |
-| **ZFLAG** | enabled if accumulator is zero                                                |
+| **CFLAG** | Enabled if the result of some arithmetic operation is more than 8 bits or 255 |
+| **ZFLAG** | Enabled if accumulator is zero                                                |
 
 ## To-do List:
 
