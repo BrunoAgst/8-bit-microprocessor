@@ -12,7 +12,7 @@ Currently has one instruction implemented and two pending. New instructions will
 | **ADD** | Add an argument to the accumulator      |
 | **SUB** | Subtracts argument from the accumulator |
 | **STA** | Add accumulator to UR                   |
-| **XOR** | Pending...                              |
+| **XOR** | Does the logic xor in the accumulator   |
 | **OR**  | Does the logic or in the accumulator    |
 | **AND** | Does the logic and in the accumulator   |
 | **LDA** | Pending...                              |
@@ -53,4 +53,4 @@ Currently has two flags:<br>
 - [ ] LDA
 - [x] AND
 - [x] OR
-- [ ] XOR
+- [x] XOR

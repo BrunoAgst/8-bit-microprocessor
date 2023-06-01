@@ -6,7 +6,7 @@
 #define STA 0x07
 #define AND 0x08
 #define OR 0x09
-#define XOR 0x10
+#define XOR 0x0A
 
 // NOTE: functions
 void print_init();
