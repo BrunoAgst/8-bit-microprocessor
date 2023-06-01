@@ -51,7 +51,7 @@ Currently has two flags:<br>
 - [x] ADD
 - [x] SUB
 - [x] STA
-- [ ] LDA
+- [x] LDA
 - [x] AND
 - [x] OR
 - [x] XOR
