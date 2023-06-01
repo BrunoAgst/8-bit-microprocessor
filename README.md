@@ -20,6 +20,7 @@ Currently has one instruction implemented and two pending. New instructions will
 | **OTI** | Add accumulator value to OTR                        |
 | **GTA** | Conditional branch instruction                      |
 | **IFC** | Conditional branch instruction if flag c is enabled |
+| **IFZ** | Conditional branch instruction if flag z is enabled |
 
 <br>
 
@@ -62,6 +63,6 @@ Currently has two flags:<br>
 - [x] NOT
 - [x] OTI
 - [x] GTA
-- [ ] IFZ
+- [x] IFZ
 - [x] IFC
 - [ ] ITI

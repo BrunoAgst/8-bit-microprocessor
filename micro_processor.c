@@ -23,7 +23,8 @@ unsigned char level = 1;
 
 // NOTE: rom memory simulator
 char rom[20] = {
-    0x02, 0x05, 0x01, 0x0D, 0x07, 0x0C, 0x00, 0x06, 0x00};
+    0x02, 0x05, 0x01, 0x0D, 0x07, 0x0C, 0x00,
+    0x06, 0x01, 0x02, 0x0E, 0x0E, 0x0C, 0x07, 0x00};
 
 void fetch_cycle()
 {
@@ -128,6 +129,10 @@ int select_instruction(char opcode)
         INSTRUCTION = IFC;
         valid = 1;
         break;
+    case 0x0E:
+        INSTRUCTION = IFZ;
+        valid = 1;
+        break;
     default:
         level = 0;
         valid = 0;
@@ -175,6 +180,8 @@ void search_operation(char instruction)
     case IFC:
         ifc_exec();
         break;
+    case IFZ:
+        ifz_exec();
     default:
         break;
     }
@@ -193,7 +200,6 @@ void ldi_exec()
     if (cycle == 4)
     {
         ACC = ARGUMENT;
-        // print_output();
         cycle = 0;
         return;
     }
@@ -221,7 +227,6 @@ void add_exec()
         CFLAG = (ACC + BR) >> 8;
         ACC += BR;
         ZFLAG = ACC ? 0 : 1;
-        print_output();
         cycle = 0;
         return;
     }
@@ -249,7 +254,6 @@ void sub_exec()
         CFLAG = (ACC - BR) >> 8;
         ACC -= BR;
         ZFLAG = ACC ? 0 : 1;
-        print_output();
         cycle = 0;
         return;
     }
@@ -270,14 +274,12 @@ void sta_exec()
         if (ARGUMENT >= 0x00 && ARGUMENT < 0x10)
         {
             UR[ARGUMENT] = ACC;
-            print_output();
             cycle = 0;
             return;
         }
         else
         {
             printf("Error UR 0x%.2x invalid", ARGUMENT);
-            print_output();
             cycle = 0;
             return;
         }
@@ -300,14 +302,12 @@ void lda_exec()
         {
             ACC = UR[ARGUMENT];
             ZFLAG = ACC ? 0 : 1;
-            print_output();
             cycle = 0;
             return;
         }
         else
         {
             printf("Error UR 0x%.2x invalid", ARGUMENT);
-            print_output();
             cycle = 0;
             return;
         }
@@ -328,7 +328,6 @@ void and_exec()
     {
         ACC &= ARGUMENT;
         ZFLAG = ACC ? 0 : 1;
-        print_output();
         cycle = 0;
         return;
     }
@@ -348,7 +347,6 @@ void or_exec()
     {
         ACC |= ARGUMENT;
         ZFLAG = ACC ? 0 : 1;
-        print_output();
         cycle = 0;
         return;
     }
@@ -368,7 +366,6 @@ void xor_exec()
     {
         ACC ^= ARGUMENT;
         ZFLAG = ACC ? 0 : 1;
-        print_output();
         cycle = 0;
         return;
     }
@@ -380,7 +377,6 @@ void not_exec()
     {
         ACC = ~ACC;
         ZFLAG = ACC ? 0 : 1;
-        print_output();
         cycle = 0;
         return;
     }
@@ -430,7 +426,32 @@ void ifc_exec()
         if (CFLAG == 1)
         {
             counter = ARGUMENT;
-            print_output();
+            cycle = 0;
+            return;
+        }
+        else
+        {
+            cycle = 0;
+            return;
+        }
+    }
+}
+
+void ifz_exec()
+{
+    if (cycle == 3)
+    {
+        ARGUMENT = rom[counter];
+        counter++;
+        cycle++;
+        return;
+    }
+
+    if (cycle == 4)
+    {
+        if (ZFLAG == 1)
+        {
+            counter = ARGUMENT;
             cycle = 0;
             return;
         }
