@@ -18,6 +18,7 @@ Currently has one instruction implemented and two pending. New instructions will
 | **NOT** | Invert the accumulator bits                         |
 | **LDA** | Add UR value to accumulator                         |
 | **OTI** | Add accumulator value to OTR                        |
+| **ITI** | Add ITR value to accumulator                        |
 | **GTA** | Conditional branch instruction                      |
 | **IFC** | Conditional branch instruction if flag c is enabled |
 | **IFZ** | Conditional branch instruction if flag z is enabled |
@@ -40,6 +41,7 @@ Currently has five registrars:<br>
 | **BR**              | 8-bit registers to aid in logical operations |
 | **UR**              | Ten registers for the user to use            |
 | **OTR**             | Output register                              |
+| **ITR**             | Input register                               |
 
 <br>
 
@@ -69,4 +71,4 @@ Currently has two flags:<br>
 - [x] IFC
 - [x] NOP
 - [x] HLT
-- [ ] ITI
+- [x] ITI

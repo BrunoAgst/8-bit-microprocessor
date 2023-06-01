@@ -14,6 +14,7 @@
 #define GTA 0x0C
 #define IFC 0x0D
 #define IFZ 0x0E
+#define ITI 0x0F
 
 // NOTE: functions
 void print_init();
@@ -36,4 +37,5 @@ void gta_exec();
 void ifc_exec();
 void ifz_exec();
 void nop_exec();
+void iti_exec();
 void print_output();

@@ -10,6 +10,7 @@ unsigned char ARGUMENT = 0x00;
 unsigned char ACC = 0x00;
 unsigned char ADD_ROM = 0x00;
 unsigned char BR = 0x00;
+unsigned int ITR = 0x00;
 unsigned char UR[10] = {0x00};
 
 // NOTE: flag registers
@@ -23,8 +24,7 @@ unsigned char level = 1;
 
 // NOTE: rom memory simulator
 char rom[20] = {
-    0x02, 0x05, 0x01, 0x0D, 0x07, 0x0C, 0x00,
-    0x06, 0x01, 0x02, 0x0E, 0x0E, 0x0C, 0x07, 0x00};
+    0x0F, 0x02, 0x00};
 
 void fetch_cycle()
 {
@@ -142,6 +142,10 @@ int select_instruction(char opcode)
         INSTRUCTION = IFZ;
         valid = 1;
         break;
+    case 0x0F:
+        INSTRUCTION = ITI;
+        valid = 1;
+        break;
     default:
         printf("\n[Error] - Instruction not found\n");
         level = 0;
@@ -195,6 +199,9 @@ void search_operation(char instruction)
         break;
     case IFZ:
         ifz_exec();
+        break;
+    case ITI:
+        iti_exec();
         break;
     default:
         break;
@@ -483,6 +490,24 @@ void nop_exec()
     return;
 }
 
+void iti_exec()
+{
+    if (cycle == 3)
+    {
+        printf("Enter hex value to add in ITI without 0x: ");
+        scanf("%x", &ITR);
+        cycle++;
+        return;
+    }
+
+    if (cycle == 4)
+    {
+        ACC = ITR;
+        cycle = 0;
+        return;
+    }
+}
+
 void print_output()
 {
     printf("\n******************************\n");
@@ -496,6 +521,7 @@ void print_output()
     printf("BR - 0x%.2x\n", BR);
     printf("ACC - 0x%.2x\n", ACC);
     printf("OTR - 0x%.2x\n", OTR);
+    printf("ITR - 0x%.2x\n", ITR);
     printf("UR0 - 0x%.2x\n", UR[0]);
     printf("UR1 - 0x%.2x\n", UR[1]);
     printf("UR2 - 0x%.2x\n", UR[2]);
