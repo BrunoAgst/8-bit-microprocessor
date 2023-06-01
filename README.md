@@ -11,12 +11,12 @@ Currently has one instruction implemented and two pending. New instructions will
 | **LDI** | Add argument to accumulator             |
 | **ADD** | Add an argument to the accumulator      |
 | **SUB** | Subtracts argument from the accumulator |
-| **STA** | Add accumulator to UR                   |
+| **STA** | Add accumulator value to UR             |
 | **XOR** | Does the logic xor in the accumulator   |
 | **OR**  | Does the logic or in the accumulator    |
 | **AND** | Does the logic and in the accumulator   |
 | **NOT** | Invert the accumulator bits             |
-| **LDA** | Pending...                              |
+| **LDA** | Add UR value to accumulator             |
 
 <br>
 

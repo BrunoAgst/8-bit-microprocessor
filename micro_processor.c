@@ -21,8 +21,8 @@ unsigned char counter = 0;
 unsigned char level = 1;
 
 // NOTE: rom memory simulator
-char rom[15] = {
-    0x04, 0xA3, 0x08, 0xF0, 0x09, 0x06, 0x0A, 0x01, 0x0B, 0x00};
+char rom[20] = {
+    0x04, 0xA3, 0x07, 0x02, 0x08, 0xF0, 0x09, 0x06, 0x0A, 0x01, 0x0B, 0x03, 0x02, 0x00};
 
 void fetch_cycle()
 {
@@ -79,6 +79,10 @@ int select_instruction(char opcode)
     int valid = 0;
     switch (opcode)
     {
+    case 0x03:
+        INSTRUCTION = LDA;
+        valid = 1;
+        break;
     case 0x04:
         INSTRUCTION = LDI;
         valid = 1;
@@ -123,6 +127,9 @@ void search_operation(char instruction)
 {
     switch (instruction)
     {
+    case LDA:
+        lda_exec();
+        break;
     case LDI:
         ldi_exec();
         break;
@@ -145,7 +152,7 @@ void search_operation(char instruction)
         xor_exec();
         break;
     case NOT:
-        or_exec();
+        not_exec();
         break;
     default:
         break;
@@ -239,9 +246,39 @@ void sta_exec()
 
     if (cycle == 4)
     {
-        if (ARGUMENT > 0x00 && ARGUMENT < 0x10)
+        if (ARGUMENT >= 0x00 && ARGUMENT < 0x10)
         {
             UR[ARGUMENT] = ACC;
+            print_output();
+            cycle = 0;
+            return;
+        }
+        else
+        {
+            printf("Error UR 0x%.2x invalid", ARGUMENT);
+            print_output();
+            cycle = 0;
+            return;
+        }
+    }
+}
+
+void lda_exec()
+{
+    if (cycle == 3)
+    {
+        ARGUMENT = rom[counter];
+        counter++;
+        cycle++;
+        return;
+    }
+
+    if (cycle == 4)
+    {
+        if (ARGUMENT >= 0x00 && ARGUMENT < 0x10)
+        {
+            ACC = UR[ARGUMENT];
+            ZFLAG = ACC ? 0 : 1;
             print_output();
             cycle = 0;
             return;
@@ -320,8 +357,9 @@ void not_exec()
 {
     if (cycle == 3)
     {
-        ~ACC;
+        ACC = ~ACC;
         ZFLAG = ACC ? 0 : 1;
+        print_output();
         cycle = 0;
         return;
     }

@@ -16,7 +16,7 @@ void get_instruction();
 void search_instruction();
 int select_instruction(char opcode);
 void search_operation(char instruction);
-void lda_exec(); // TODO: implement lda statement
+void lda_exec();
 void sta_exec();
 void and_exec();
 void or_exec();
