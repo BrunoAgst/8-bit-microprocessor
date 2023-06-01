@@ -21,8 +21,8 @@ unsigned char counter = 0;
 unsigned char level = 1;
 
 // NOTE: rom memory simulator
-char rom[9] = {
-    0x04, 0x10, 0x05, 0x02, 0x06, 0x11, 0x07, 0x02, 0x00};
+char rom[11] = {
+    0x04, 0x09, 0x05, 0x02, 0x06, 0x11, 0x07, 0x02, 0x08, 0xF0, 0x00};
 
 void fetch_cycle()
 {
@@ -95,6 +95,10 @@ int select_instruction(char opcode)
         INSTRUCTION = STA;
         valid = 1;
         break;
+    case 0x08:
+        INSTRUCTION = AND;
+        valid = 1;
+        break;
     default:
         level = 0;
         valid = 0;
@@ -103,9 +107,9 @@ int select_instruction(char opcode)
     return valid;
 }
 
-void search_operation(char instruct)
+void search_operation(char instruction)
 {
-    switch (instruct)
+    switch (instruction)
     {
     case LDI:
         ldi_exec();
@@ -118,6 +122,9 @@ void search_operation(char instruct)
         break;
     case STA:
         sta_exec();
+        break;
+    case AND:
+        and_exec();
         break;
     default:
         break;
@@ -228,6 +235,25 @@ void sta_exec()
     }
 }
 
+void and_exec()
+{
+    if (cycle == 3)
+    {
+        ARGUMENT = rom[counter];
+        counter++;
+        cycle++;
+        return;
+    }
+
+    if (cycle == 4)
+    {
+        ACC &= ARGUMENT;
+        ZFLAG = ACC ? 0 : 1;
+        print_output();
+        cycle = 0;
+        return;
+    }
+}
 void print_output()
 {
     printf("\n******************************\n");
