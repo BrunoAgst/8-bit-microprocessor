@@ -81,6 +81,11 @@ int select_instruction(char opcode)
     int valid = 0;
     switch (opcode)
     {
+    case 0x00:
+        INSTRUCTION = HALT;
+        level = 0;
+        valid = 0;
+        break;
     case 0x01:
         INSTRUCTION = NOP;
         valid = 1;
@@ -138,9 +143,9 @@ int select_instruction(char opcode)
         valid = 1;
         break;
     default:
+        printf("\n[Error] - Instruction not found\n");
         level = 0;
         valid = 0;
-        break;
     }
     return valid;
 }

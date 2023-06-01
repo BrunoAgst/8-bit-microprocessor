@@ -1,4 +1,5 @@
 // NOTE: instructions
+#define HALT 0x00
 #define NOP 0x01
 #define OTI 0x02
 #define LDA 0x03
