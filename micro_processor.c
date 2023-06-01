@@ -4,6 +4,7 @@
 
 // NOTE: registrars
 unsigned char INSTRUCTION = 0x00;
+unsigned char OTR = 0x00;
 unsigned char ADD_INSTRUCTION = 0x00;
 unsigned char ARGUMENT = 0x00;
 unsigned char ACC = 0x00;
@@ -22,7 +23,7 @@ unsigned char level = 1;
 
 // NOTE: rom memory simulator
 char rom[20] = {
-    0x04, 0xA3, 0x07, 0x02, 0x08, 0xF0, 0x09, 0x06, 0x0A, 0x01, 0x0B, 0x03, 0x02, 0x00};
+    0x04, 0xA3, 0x07, 0x02, 0x08, 0xF0, 0x09, 0x06, 0x0A, 0x01, 0x0B, 0x03, 0x02, 0x02, 0x00};
 
 void fetch_cycle()
 {
@@ -79,6 +80,10 @@ int select_instruction(char opcode)
     int valid = 0;
     switch (opcode)
     {
+    case 0x02:
+        INSTRUCTION = OTI;
+        valid = 1;
+        break;
     case 0x03:
         INSTRUCTION = LDA;
         valid = 1;
@@ -127,6 +132,8 @@ void search_operation(char instruction)
 {
     switch (instruction)
     {
+    case OTI:
+        oti_exec();
     case LDA:
         lda_exec();
         break;
@@ -365,6 +372,17 @@ void not_exec()
     }
 }
 
+void oti_exec()
+{
+    if (cycle == 3)
+    {
+        OTR = ACC;
+        print_output();
+        cycle = 0;
+        return;
+    }
+}
+
 void print_output()
 {
     printf("\n******************************\n");
@@ -377,6 +395,7 @@ void print_output()
     printf("ARGUMENT - 0x%.2x\n", ARGUMENT);
     printf("BR - 0x%.2x\n", BR);
     printf("ACC - 0x%.2x\n", ACC);
+    printf("OTR - 0x%.2x\n", OTR);
     printf("UR0 - 0x%.2x\n", UR[0]);
     printf("UR1 - 0x%.2x\n", UR[1]);
     printf("UR2 - 0x%.2x\n", UR[2]);

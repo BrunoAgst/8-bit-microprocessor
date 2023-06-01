@@ -17,7 +17,7 @@ Currently has one instruction implemented and two pending. New instructions will
 | **AND** | Does the logic and in the accumulator   |
 | **NOT** | Invert the accumulator bits             |
 | **LDA** | Add UR value to accumulator             |
-| **OTI** | Pending...                              |
+| **OTI** | Add accumulator value to OTR            |
 | **GTA** | Pending...                              |
 
 <br>
@@ -35,7 +35,7 @@ Currently has five registrars:<br>
 | **ADD_ROM**         | Current address of rom memory                |
 | **BR**              | 8-bit registers to aid in logical operations |
 | **UR**              | Ten registers for the user to use            |
-| **OTR**             | Pending...                                   |
+| **OTR**             | Output register                              |
 
 <br>
 
@@ -59,5 +59,5 @@ Currently has two flags:<br>
 - [x] OR
 - [x] XOR
 - [x] NOT
-- [ ] OTI
+- [x] OTI
 - [ ] GTA

@@ -1,4 +1,5 @@
 // NOTE: instructions
+#define OTI 0x02
 #define LDA 0x03
 #define LDI 0x04
 #define ADD 0x05
@@ -25,4 +26,5 @@ void not_exec();
 void ldi_exec();
 void add_exec();
 void sub_exec();
+void oti_exec();
 void print_output();
