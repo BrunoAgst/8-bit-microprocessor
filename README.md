@@ -15,7 +15,7 @@ Currently has one instruction implemented and two pending. New instructions will
 | **XOR** | Does the logic xor in the accumulator   |
 | **OR**  | Does the logic or in the accumulator    |
 | **AND** | Does the logic and in the accumulator   |
-| **NOT** | Peding...                               |
+| **NOT** | Invert the accumulator bits             |
 | **LDA** | Pending...                              |
 
 <br>
@@ -55,4 +55,4 @@ Currently has two flags:<br>
 - [x] AND
 - [x] OR
 - [x] XOR
-- [ ] NOT
+- [x] NOT

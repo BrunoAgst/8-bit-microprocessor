@@ -22,7 +22,7 @@ unsigned char level = 1;
 
 // NOTE: rom memory simulator
 char rom[15] = {
-    0x04, 0xA3, 0x08, 0xF0, 0x09, 0x06, 0x0A, 0x01, 0x00};
+    0x04, 0xA3, 0x08, 0xF0, 0x09, 0x06, 0x0A, 0x01, 0x0B, 0x00};
 
 void fetch_cycle()
 {
@@ -107,6 +107,10 @@ int select_instruction(char opcode)
         INSTRUCTION = XOR;
         valid = 1;
         break;
+    case 0x0B:
+        INSTRUCTION = NOT;
+        valid = 1;
+        break;
     default:
         level = 0;
         valid = 0;
@@ -139,6 +143,9 @@ void search_operation(char instruction)
         break;
     case XOR:
         xor_exec();
+        break;
+    case NOT:
+        or_exec();
         break;
     default:
         break;
@@ -304,6 +311,17 @@ void xor_exec()
         ACC ^= ARGUMENT;
         ZFLAG = ACC ? 0 : 1;
         print_output();
+        cycle = 0;
+        return;
+    }
+}
+
+void not_exec()
+{
+    if (cycle == 3)
+    {
+        ~ACC;
+        ZFLAG = ACC ? 0 : 1;
         cycle = 0;
         return;
     }

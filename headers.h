@@ -7,6 +7,7 @@
 #define AND 0x08
 #define OR 0x09
 #define XOR 0x0A
+#define NOT 0x0B
 
 // NOTE: functions
 void print_init();
@@ -19,7 +20,8 @@ void lda_exec(); // TODO: implement lda statement
 void sta_exec();
 void and_exec();
 void or_exec();
-void xor_exec(); // TODO: implement lda statement
+void xor_exec();
+void not_exec();
 void ldi_exec();
 void add_exec();
 void sub_exec();
