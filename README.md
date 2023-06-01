@@ -6,19 +6,20 @@ Currently has one instruction implemented and two pending. New instructions will
 
 ## Instructions
 
-| Item    | Description                             |
-| :------ | :-------------------------------------- |
-| **LDI** | Add argument to accumulator             |
-| **ADD** | Add an argument to the accumulator      |
-| **SUB** | Subtracts argument from the accumulator |
-| **STA** | Add accumulator value to UR             |
-| **XOR** | Does the logic xor in the accumulator   |
-| **OR**  | Does the logic or in the accumulator    |
-| **AND** | Does the logic and in the accumulator   |
-| **NOT** | Invert the accumulator bits             |
-| **LDA** | Add UR value to accumulator             |
-| **OTI** | Add accumulator value to OTR            |
-| **GTA** | Conditional branch instruction          |
+| Item    | Description                                         |
+| :------ | :-------------------------------------------------- |
+| **LDI** | Add argument to accumulator                         |
+| **ADD** | Add an argument to the accumulator                  |
+| **SUB** | Subtracts argument from the accumulator             |
+| **STA** | Add accumulator value to UR                         |
+| **XOR** | Does the logic xor in the accumulator               |
+| **OR**  | Does the logic or in the accumulator                |
+| **AND** | Does the logic and in the accumulator               |
+| **NOT** | Invert the accumulator bits                         |
+| **LDA** | Add UR value to accumulator                         |
+| **OTI** | Add accumulator value to OTR                        |
+| **GTA** | Conditional branch instruction                      |
+| **IFC** | Conditional branch instruction if flag c is enabled |
 
 <br>
 
@@ -62,5 +63,5 @@ Currently has two flags:<br>
 - [x] OTI
 - [x] GTA
 - [ ] IFZ
-- [ ] IFC
+- [x] IFC
 - [ ] ITI

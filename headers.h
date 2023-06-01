@@ -10,6 +10,7 @@
 #define XOR 0x0A
 #define NOT 0x0B
 #define GTA 0x0C
+#define IFC 0x0D
 
 // NOTE: functions
 void print_init();
@@ -29,4 +30,5 @@ void add_exec();
 void sub_exec();
 void oti_exec();
 void gta_exec();
+void ifc_exec();
 void print_output();
