@@ -18,7 +18,7 @@ void search_operation(char instruction);
 void lda_exec(); // TODO: implement lda statement
 void sta_exec();
 void and_exec();
-void or_exec();  // TODO: implement lda statement
+void or_exec();
 void xor_exec(); // TODO: implement lda statement
 void ldi_exec();
 void add_exec();
