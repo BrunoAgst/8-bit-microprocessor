@@ -18,7 +18,7 @@ Currently has one instruction implemented and two pending. New instructions will
 | **NOT** | Invert the accumulator bits             |
 | **LDA** | Add UR value to accumulator             |
 | **OTI** | Add accumulator value to OTR            |
-| **GTA** | Pending...                              |
+| **GTA** | Conditional branch instruction          |
 
 <br>
 
@@ -60,4 +60,7 @@ Currently has two flags:<br>
 - [x] XOR
 - [x] NOT
 - [x] OTI
-- [ ] GTA
+- [x] GTA
+- [ ] IFZ
+- [ ] IFC
+- [ ] ITI

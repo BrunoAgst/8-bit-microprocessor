@@ -23,7 +23,7 @@ unsigned char level = 1;
 
 // NOTE: rom memory simulator
 char rom[20] = {
-    0x04, 0xA3, 0x07, 0x02, 0x08, 0xF0, 0x09, 0x06, 0x0A, 0x01, 0x0B, 0x03, 0x02, 0x02, 0x00};
+    0x04, 0xAA, 0x0B, 0x02, 0x0C, 0x02, 0x00};
 
 void fetch_cycle()
 {
@@ -120,6 +120,10 @@ int select_instruction(char opcode)
         INSTRUCTION = NOT;
         valid = 1;
         break;
+    case 0x0C:
+        INSTRUCTION = GTA;
+        valid = 1;
+        break;
     default:
         level = 0;
         valid = 0;
@@ -161,6 +165,9 @@ void search_operation(char instruction)
     case NOT:
         not_exec();
         break;
+    case GTA:
+        gta_exec();
+        break;
     default:
         break;
     }
@@ -179,7 +186,7 @@ void ldi_exec()
     if (cycle == 4)
     {
         ACC = ARGUMENT;
-        print_output();
+        // print_output();
         cycle = 0;
         return;
     }
@@ -378,6 +385,24 @@ void oti_exec()
     {
         OTR = ACC;
         print_output();
+        cycle = 0;
+        return;
+    }
+}
+
+void gta_exec()
+{
+    if (cycle == 3)
+    {
+        ARGUMENT = rom[counter];
+        counter++;
+        cycle++;
+        return;
+    }
+
+    if (cycle == 4)
+    {
+        counter = ARGUMENT;
         cycle = 0;
         return;
     }

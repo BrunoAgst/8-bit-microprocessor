@@ -9,6 +9,7 @@
 #define OR 0x09
 #define XOR 0x0A
 #define NOT 0x0B
+#define GTA 0x0C
 
 // NOTE: functions
 void print_init();
@@ -27,4 +28,5 @@ void ldi_exec();
 void add_exec();
 void sub_exec();
 void oti_exec();
+void gta_exec();
 void print_output();
