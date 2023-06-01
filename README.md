@@ -6,23 +6,23 @@ Currently has one instruction implemented and two pending. New instructions will
 
 ## Instructions
 
-| Item     | Description                                         |
-| :------- | :-------------------------------------------------- |
-| **LDI**  | Add argument to accumulator                         |
-| **ADD**  | Add an argument to the accumulator                  |
-| **SUB**  | Subtracts argument from the accumulator             |
-| **STA**  | Add accumulator value to UR                         |
-| **XOR**  | Does the logic xor in the accumulator               |
-| **ORL**  | Does the logic or in the accumulator                |
-| **AND**  | Does the logic and in the accumulator               |
-| **NOT**  | Invert the accumulator bits                         |
-| **LDA**  | Add UR value to accumulator                         |
-| **OTI**  | Add accumulator value to OTR                        |
-| **GTA**  | Conditional branch instruction                      |
-| **IFC**  | Conditional branch instruction if flag c is enabled |
-| **IFZ**  | Conditional branch instruction if flag z is enabled |
-| **NOP**  | This instruction is used to waste time              |
-| **HALT** | Stop processing                                     |
+| Item    | Description                                         |
+| :------ | :-------------------------------------------------- |
+| **LDI** | Add argument to accumulator                         |
+| **ADD** | Add an argument to the accumulator                  |
+| **SUB** | Subtracts argument from the accumulator             |
+| **STA** | Add accumulator value to UR                         |
+| **XOR** | Does the logic xor in the accumulator               |
+| **ORL** | Does the logic or in the accumulator                |
+| **AND** | Does the logic and in the accumulator               |
+| **NOT** | Invert the accumulator bits                         |
+| **LDA** | Add UR value to accumulator                         |
+| **OTI** | Add accumulator value to OTR                        |
+| **GTA** | Conditional branch instruction                      |
+| **IFC** | Conditional branch instruction if flag c is enabled |
+| **IFZ** | Conditional branch instruction if flag z is enabled |
+| **NOP** | This instruction is used to waste time              |
+| **HLT** | Stop processing                                     |
 
 <br>
 
@@ -68,5 +68,5 @@ Currently has two flags:<br>
 - [x] IFZ
 - [x] IFC
 - [x] NOP
-- [x] HALT
+- [x] HLT
 - [ ] ITI

@@ -82,7 +82,7 @@ int select_instruction(char opcode)
     switch (opcode)
     {
     case 0x00:
-        INSTRUCTION = HALT;
+        INSTRUCTION = HLT;
         level = 0;
         valid = 0;
         break;
