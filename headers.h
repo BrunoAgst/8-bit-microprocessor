@@ -1,4 +1,5 @@
 // NOTE: instructions
+#define NOP 0x01
 #define OTI 0x02
 #define LDA 0x03
 #define LDI 0x04
@@ -6,7 +7,7 @@
 #define SUB 0x06
 #define STA 0x07
 #define AND 0x08
-#define OR 0x09
+#define ORL 0x09
 #define XOR 0x0A
 #define NOT 0x0B
 #define GTA 0x0C
@@ -23,7 +24,7 @@ void search_operation(char instruction);
 void lda_exec();
 void sta_exec();
 void and_exec();
-void or_exec();
+void orl_exec();
 void xor_exec();
 void not_exec();
 void ldi_exec();
@@ -33,4 +34,5 @@ void oti_exec();
 void gta_exec();
 void ifc_exec();
 void ifz_exec();
+void nop_exec();
 void print_output();

@@ -13,7 +13,7 @@ Currently has one instruction implemented and two pending. New instructions will
 | **SUB** | Subtracts argument from the accumulator             |
 | **STA** | Add accumulator value to UR                         |
 | **XOR** | Does the logic xor in the accumulator               |
-| **OR**  | Does the logic or in the accumulator                |
+| **ORL** | Does the logic or in the accumulator                |
 | **AND** | Does the logic and in the accumulator               |
 | **NOT** | Invert the accumulator bits                         |
 | **LDA** | Add UR value to accumulator                         |
@@ -21,6 +21,7 @@ Currently has one instruction implemented and two pending. New instructions will
 | **GTA** | Conditional branch instruction                      |
 | **IFC** | Conditional branch instruction if flag c is enabled |
 | **IFZ** | Conditional branch instruction if flag z is enabled |
+| **NOP** | This instruction is used to waste time              |
 
 <br>
 
@@ -58,11 +59,12 @@ Currently has two flags:<br>
 - [x] STA
 - [x] LDA
 - [x] AND
-- [x] OR
+- [x] ORL
 - [x] XOR
 - [x] NOT
 - [x] OTI
 - [x] GTA
 - [x] IFZ
 - [x] IFC
+- [x] NOP
 - [ ] ITI

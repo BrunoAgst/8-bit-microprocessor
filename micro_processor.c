@@ -81,6 +81,10 @@ int select_instruction(char opcode)
     int valid = 0;
     switch (opcode)
     {
+    case 0x01:
+        INSTRUCTION = NOP;
+        valid = 1;
+        break;
     case 0x02:
         INSTRUCTION = OTI;
         valid = 1;
@@ -110,7 +114,7 @@ int select_instruction(char opcode)
         valid = 1;
         break;
     case 0x09:
-        INSTRUCTION = OR;
+        INSTRUCTION = ORL;
         valid = 1;
         break;
     case 0x0A:
@@ -145,8 +149,12 @@ void search_operation(char instruction)
 {
     switch (instruction)
     {
+    case NOP:
+        nop_exec();
+        break;
     case OTI:
         oti_exec();
+        break;
     case LDA:
         lda_exec();
         break;
@@ -165,8 +173,8 @@ void search_operation(char instruction)
     case AND:
         and_exec();
         break;
-    case OR:
-        or_exec();
+    case ORL:
+        orl_exec();
         break;
     case XOR:
         xor_exec();
@@ -182,6 +190,7 @@ void search_operation(char instruction)
         break;
     case IFZ:
         ifz_exec();
+        break;
     default:
         break;
     }
@@ -333,7 +342,7 @@ void and_exec()
     }
 }
 
-void or_exec()
+void orl_exec()
 {
     if (cycle == 3)
     {
@@ -461,6 +470,12 @@ void ifz_exec()
             return;
         }
     }
+}
+
+void nop_exec()
+{
+    cycle = 0;
+    return;
 }
 
 void print_output()
