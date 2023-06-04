@@ -73,3 +73,19 @@ Currently has two flags: <br>
 - [x] HLT
 - [x] ITI
 - [x] Adapt 8bit processor for raspberry pi pico
+
+## Raspberry Pico
+
+# Configuration
+Create the **build** folder and inside the folder run the command:
+
+```
+cmake ..
+```
+
+# Build
+```
+make -j4
+```
+
+
