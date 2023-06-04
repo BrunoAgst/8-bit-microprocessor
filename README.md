@@ -72,4 +72,4 @@ Currently has two flags: <br>
 - [x] NOP
 - [x] HLT
 - [x] ITI
-- [ ] Adapt 8bit processor for raspberry pi pico
+- [x] Adapt 8bit processor for raspberry pi pico
