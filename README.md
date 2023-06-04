@@ -1,29 +1,29 @@
 # 8-Bit microprocessor
 
 This project is the construction of an 8-bit microprocessor. <br>
-Currently has one instruction implemented and two pending. New instructions will be added in the future.<br>
 <br>
 
 ## Instructions
 
-| Item    | Description                                         |
-| :------ | :-------------------------------------------------- |
-| **LDI** | Add argument to accumulator                         |
-| **ADD** | Add an argument to the accumulator                  |
-| **SUB** | Subtracts argument from the accumulator             |
-| **STA** | Add accumulator value to UR                         |
-| **XOR** | Does the logic xor in the accumulator               |
-| **ORL** | Does the logic or in the accumulator                |
-| **AND** | Does the logic and in the accumulator               |
-| **NOT** | Invert the accumulator bits                         |
-| **LDA** | Add UR value to accumulator                         |
-| **OTI** | Add accumulator value to OTR                        |
-| **ITI** | Add ITR value to accumulator                        |
-| **GTA** | Conditional branch instruction                      |
-| **IFC** | Conditional branch instruction if flag c is enabled |
-| **IFZ** | Conditional branch instruction if flag z is enabled |
-| **NOP** | This instruction is used to waste time              |
-| **HLT** | Stop processing                                     |
+| Item    | Description                                         | code |
+| :------ | :-------------------------------------------------- | :--- |
+| **HLT** | Stop processing                                     | 0x00 |
+| **NOP** | This instruction is used to waste time              | 0x01 |
+| **OTI** | Add accumulator value to OTR                        | 0x02 |
+| **LDA** | Add UR value to accumulator                         | 0x03 |
+| **LDI** | Add argument to accumulator                         | 0x04 |
+| **ADD** | Add an argument to the accumulator                  | 0x05 |
+| **SUB** | Subtracts argument from the accumulator             | 0x06 |
+| **STA** | Add accumulator value to UR                         | 0x07 |
+| **AND** | Does the logic and in the accumulator               | 0x08 |
+| **ORL** | Does the logic or in the accumulator                | 0x09 |
+| **XOR** | Does the logic xor in the accumulator               | 0x0A |
+| **NOT** | Invert the accumulator bits                         | 0x0B |
+| **GTA** | Conditional branch instruction                      | 0x0C |
+| **IFC** | Conditional branch instruction if flag c is enabled | 0x0D |
+| **IFZ** | Conditional branch instruction if flag z is enabled | 0x0E |
+| **ITI** | Add ITR value to accumulator                        | 0x0F |
+
 
 <br>
 
@@ -51,28 +51,10 @@ Currently has two flags: <br>
 
 | Item      | Description                                                                   |
 | :-------- | :---------------------------------------------------------------------------- |
-| **CFLAG** | Enabled if the result of some arithmetic operation is more than 8 bits or 255 |
+| **CFLAG** | Enabled if the result of some arithmetic operation is more than 255           | 
 | **ZFLAG** | Enabled if accumulator is zero                                                |
 
-## To-do List:
 
-- [x] LDI
-- [x] ADD
-- [x] SUB
-- [x] STA
-- [x] LDA
-- [x] AND
-- [x] ORL
-- [x] XOR
-- [x] NOT
-- [x] OTI
-- [x] GTA
-- [x] IFZ
-- [x] IFC
-- [x] NOP
-- [x] HLT
-- [x] ITI
-- [x] Adapt 8bit processor for raspberry pi pico
 
 # Raspberry Pico
 
