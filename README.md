@@ -70,5 +70,7 @@ cmake ..
 make -j4
 ``` 
 
-## Pico schematic
-<img src="https://i.ibb.co/p4ZFmNb/Captura-de-Tela-2023-06-04-a-s-17-51-23.png" alt="schematic pico" border="0">
+# Images
+<img src="https://i.ibb.co/p4ZFmNb/Captura-de-Tela-2023-06-04-a-s-17-51-23.png" alt="schematic pico" border="0"><br>
+
+<img src="https://i.ibb.co/hWwSsb1/IMG-4650.jpg" alt="image" border="0">
