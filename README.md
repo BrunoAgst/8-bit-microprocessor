@@ -74,18 +74,19 @@ Currently has two flags: <br>
 - [x] ITI
 - [x] Adapt 8bit processor for raspberry pi pico
 
-## Raspberry Pico
+# Raspberry Pico
 
-# Configuration
+## Configuration
 Create the **build** folder and inside the folder run the command:
 
 ```
 cmake ..
-```
+``` 
 
-# Build
+## Build
 ```
 make -j4
-```
+``` 
 
-
+## Pico schematic
+<img src="https://i.ibb.co/p4ZFmNb/Captura-de-Tela-2023-06-04-a-s-17-51-23.png" alt="schematic pico" border="0">
