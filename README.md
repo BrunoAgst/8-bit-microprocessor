@@ -47,7 +47,7 @@ Currently has five registrars:<br>
 
 ## Flags
 
-Currently has two flags:<br>
+Currently has two flags: <br>
 
 | Item      | Description                                                                   |
 | :-------- | :---------------------------------------------------------------------------- |
@@ -72,3 +72,4 @@ Currently has two flags:<br>
 - [x] NOP
 - [x] HLT
 - [x] ITI
+- [ ] Adapt 8bit processor for raspberry pi pico
