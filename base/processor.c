@@ -16,6 +16,7 @@ unsigned char UR[10] = {0x00};
 // NOTE: flag registers
 unsigned char CFLAG = 0;
 unsigned char ZFLAG = 0;
+unsigned char EFLAG = 0;
 
 // NOTE: counters
 unsigned char cycle = 0;
@@ -24,7 +25,7 @@ unsigned char level = 1;
 
 // NOTE: rom memory simulator
 char rom[20] = {
-    0x04, 0x2F, 0x2F, 0x02, 0x02, 0x00};
+    0x04, 0x2F, 0x3F, 0x1F, 0x02, 0x00};
 
 void fetch_cycle()
 {
@@ -154,6 +155,10 @@ int select_instruction(char opcode)
         INSTRUCTION = SHR;
         valid = 1;
         break;
+    case 0x3F:
+        INSTRUCTION = CPA;
+        valid = 1;
+        break;
     default:
         printf("\n[Error] - Instruction not found\n");
         level = 0;
@@ -216,6 +221,9 @@ void search_operation(char instruction)
         break;
     case SHR:
         shr_exec();
+        break;
+    case CPA:
+        cpa_exec();
         break;
     default:
         break;
@@ -558,6 +566,23 @@ void shr_exec()
     }
 }
 
+void cpa_exec()
+{
+    if (cycle == 3)
+    {
+        ARGUMENT = rom[counter];
+        counter++;
+        cycle++;
+        return;
+    }
+    if (cycle == 4)
+    {
+        EFLAG = (ACC == ARGUMENT) ? 1 : 0;
+        cycle = 0;
+        return;
+    }
+}
+
 void print_output()
 {
     printf("\n******************************\n");
@@ -585,6 +610,7 @@ void print_output()
     printf("\nFlags:\n");
     printf("CFLAG - 0x%.2x\n", CFLAG);
     printf("ZFLAG - 0x%.2x\n", ZFLAG);
+    printf("EFLAG - 0x%.2x\n", EFLAG);
     printf("\n******************************\n");
 }
 

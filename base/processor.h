@@ -17,6 +17,7 @@
 #define ITI 0x0F
 #define SHR 0x1F
 #define SHL 0x2F
+#define CPA 0x3F
 
 // NOTE: functions
 void print_init();
@@ -42,4 +43,5 @@ void nop_exec();
 void iti_exec();
 void shl_exec();
 void shr_exec();
+void cpa_exec();
 void print_output();

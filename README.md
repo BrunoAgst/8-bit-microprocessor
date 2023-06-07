@@ -26,6 +26,7 @@ The processor can run on computer or raspberry pico.<br>
 | **ITI** | Add ITR value to accumulator                        | 0x0F |
 | **SHR** | Shift right accumulator                             | 0x1F |
 | **SHL** | Shift left accumulator                              | 0x2F |
+| **CPA** | Compares the accumulator with the argument          | 0x3F |
 
 <br>
 
@@ -55,6 +56,7 @@ Currently has two flags: <br>
 | :-------- | :------------------------------------------------------------------ |
 | **CFLAG** | Enabled if the result of some arithmetic operation is more than 255 |
 | **ZFLAG** | Enabled if accumulator is zero                                      |
+| **EFLAG** | Enabled if an accumulator is equal to the argument                  |
 
 # Raspberry Pico
 
