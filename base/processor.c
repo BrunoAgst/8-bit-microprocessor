@@ -577,7 +577,12 @@ void cpa_exec()
     }
     if (cycle == 4)
     {
-        EFLAG = (ACC == ARGUMENT) ? 1 : 0;
+        BR = ARGUMENT;
+        cycle++;
+    }
+    if (cycle == 5)
+    {
+        EFLAG = (ACC == BR) ? 1 : 0;
         cycle = 0;
         return;
     }
