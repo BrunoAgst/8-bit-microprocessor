@@ -1,6 +1,7 @@
 # 8-Bit microprocessor
 
 This project is the construction of an 8-bit microprocessor. <br>
+The processor can run on computer or raspberry pico.<br>
 <br>
 
 ## Instructions
