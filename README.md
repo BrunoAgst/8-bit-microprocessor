@@ -23,7 +23,8 @@ This project is the construction of an 8-bit microprocessor. <br>
 | **IFC** | Conditional branch instruction if flag c is enabled | 0x0D |
 | **IFZ** | Conditional branch instruction if flag z is enabled | 0x0E |
 | **ITI** | Add ITR value to accumulator                        | 0x0F |
-
+| **SHR** | Shift right accumulator                             | 0x1F |
+| **SHL** | Shift left accumulator                              | 0x2F |
 
 <br>
 
@@ -49,28 +50,29 @@ Currently has five registrars:<br>
 
 Currently has two flags: <br>
 
-| Item      | Description                                                                   |
-| :-------- | :---------------------------------------------------------------------------- |
-| **CFLAG** | Enabled if the result of some arithmetic operation is more than 255           | 
-| **ZFLAG** | Enabled if accumulator is zero                                                |
-
-
+| Item      | Description                                                         |
+| :-------- | :------------------------------------------------------------------ |
+| **CFLAG** | Enabled if the result of some arithmetic operation is more than 255 |
+| **ZFLAG** | Enabled if accumulator is zero                                      |
 
 # Raspberry Pico
 
 ## Configuration
+
 Create the **build** folder and inside the folder run the command:
 
 ```
 cmake ..
-``` 
+```
 
 ## Build
+
 ```
 make -j4
-``` 
+```
 
 # Images
+
 <img src="https://i.ibb.co/p4ZFmNb/Captura-de-Tela-2023-06-04-a-s-17-51-23.png" alt="schematic pico" border="0"><br>
 
 <img src="https://i.ibb.co/hWwSsb1/IMG-4650.jpg" alt="image" border="0">

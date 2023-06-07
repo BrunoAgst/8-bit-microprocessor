@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "headers.h"
+#include "processor.h"
 
 // NOTE: registrars
 unsigned char INSTRUCTION = 0x00;
@@ -24,7 +24,7 @@ unsigned char level = 1;
 
 // NOTE: rom memory simulator
 char rom[20] = {
-    0x0F, 0x02, 0x00};
+    0x04, 0x2F, 0x2F, 0x02, 0x02, 0x00};
 
 void fetch_cycle()
 {
@@ -146,6 +146,14 @@ int select_instruction(char opcode)
         INSTRUCTION = ITI;
         valid = 1;
         break;
+    case 0x1F:
+        INSTRUCTION = SHL;
+        valid = 1;
+        break;
+    case 0x2F:
+        INSTRUCTION = SHR;
+        valid = 1;
+        break;
     default:
         printf("\n[Error] - Instruction not found\n");
         level = 0;
@@ -202,6 +210,12 @@ void search_operation(char instruction)
         break;
     case ITI:
         iti_exec();
+        break;
+    case SHL:
+        shl_exec();
+        break;
+    case SHR:
+        shr_exec();
         break;
     default:
         break;
@@ -508,6 +522,42 @@ void iti_exec()
     }
 }
 
+void shl_exec()
+{
+    if (cycle == 3)
+    {
+        ARGUMENT = rom[counter];
+        counter++;
+        cycle++;
+        return;
+    }
+    if (cycle == 4)
+    {
+        ACC <<= ARGUMENT;
+        ZFLAG = ACC ? 0 : 1;
+        cycle = 0;
+        return;
+    }
+}
+
+void shr_exec()
+{
+    if (cycle == 3)
+    {
+        ARGUMENT = rom[counter];
+        counter++;
+        cycle++;
+        return;
+    }
+    if (cycle == 4)
+    {
+        ACC >>= ARGUMENT;
+        ZFLAG = ACC ? 0 : 1;
+        cycle = 0;
+        return;
+    }
+}
+
 void print_output()
 {
     printf("\n******************************\n");
@@ -536,4 +586,24 @@ void print_output()
     printf("CFLAG - 0x%.2x\n", CFLAG);
     printf("ZFLAG - 0x%.2x\n", ZFLAG);
     printf("\n******************************\n");
+}
+
+void print_init()
+{
+    printf("\n\n");
+    printf(" ####   ####  #    # #####  #    # ##### ###### #####   \n");
+    printf("#    # #    # ##  ## #    # #    #   #   #      #    #  \n");
+    printf("#      #    # # ## # #    # #    #   #   #####  #    #  \n");
+    printf("#      #    # #    # #####  #    #   #   #      #####   \n");
+    printf("#    # #    # #    # #      #    #   #   #      #   #   \n");
+    printf(" ####   ####  #    # #       ####    #   ###### #    #  \n");
+    printf("\n\n");
+    printf("          #####                                  \n");
+    printf("         #     #       #####   #  #####          \n");
+    printf("         #     #       #    #  #    #            \n");
+    printf("          #####  ##### #####   #    #            \n");
+    printf("         #     #       #    #  #    #            \n");
+    printf("         #     #       #    #  #    #            \n");
+    printf("          #####        #####   #    #            \n");
+    printf("\n\n");
 }

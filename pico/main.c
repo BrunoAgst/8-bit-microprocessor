@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "pico/stdlib.h"
 #include "hardware/gpio.h"
-#include "micro_processor.c"
+#include "processor.c"
 
 void gpio_callback();
 

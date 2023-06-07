@@ -15,6 +15,8 @@
 #define IFC 0x0D
 #define IFZ 0x0E
 #define ITI 0x0F
+#define SHR 0x1F
+#define SHL 0x2F
 
 // NOTE: functions
 void print_init();
@@ -38,4 +40,6 @@ void ifc_exec();
 void ifz_exec();
 void nop_exec();
 void iti_exec();
+void shl_exec();
+void shr_exec();
 void print_output();
