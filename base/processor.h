@@ -22,6 +22,7 @@
 #define SBA 0x14
 #define ANA 0x15
 #define ORA 0x16
+#define XRA 0x17
 
 // NOTE: functions
 void print_init();
@@ -52,4 +53,5 @@ void ada_exec();
 void sba_exec();
 void ana_exec();
 void ora_exec();
+void xra_exec();
 void print_output();

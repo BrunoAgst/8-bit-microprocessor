@@ -31,6 +31,7 @@ The processor can run on computer or raspberry pico.<br>
 | **SBA** | Subtracts UR to accumulator                         | 0x14 |
 | **ANA** | Does the logic and between accumulator and UR       | 0x15 |
 | **ORA** | Does the logic or between accumulator and UR        | 0x16 |
+| **XRA** | Does the logic xor between accumulator and UR       | 0x17 |
 
 <br>
 

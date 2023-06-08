@@ -24,7 +24,7 @@ unsigned char counter = 0;
 unsigned char level = 1;
 
 // NOTE: rom memory simulator
-char rom[20] = {0x04, 0x05, 0x07, 0x00, 0x04, 0xff, 0x16, 0x00, 0x02, 0x00};
+char rom[20] = {0x04, 0x05, 0x07, 0x00, 0x04, 0xff, 0x17, 0x00, 0x02, 0x00};
 
 void fetch_cycle()
 {
@@ -174,6 +174,10 @@ int select_instruction(char opcode)
         INSTRUCTION = ORA;
         valid = 1;
         break;
+    case 0x17:
+        INSTRUCTION = XRA;
+        valid = 1;
+        break;
     default:
         printf("\n[Error] - Instruction not found\n");
         level = 0;
@@ -251,6 +255,9 @@ void search_operation(char instruction)
         break;
     case ORA:
         ora_exec();
+        break;
+    case XRA:
+        xra_exec();
         break;
     default:
         break;
@@ -751,6 +758,41 @@ void ora_exec()
     if (cycle == 5)
     {
         ACC |= BR;
+        ZFLAG = ACC ? 0 : 1;
+        cycle = 0;
+        return;
+    }
+}
+
+void xra_exec()
+{
+    if (cycle == 3)
+    {
+        ARGUMENT = rom[counter];
+        counter++;
+        cycle++;
+        return;
+    }
+
+    if (cycle == 4)
+    {
+        if (ARGUMENT >= 0x00 && ARGUMENT < 0x10)
+        {
+            BR = UR[ARGUMENT];
+            cycle++;
+            return;
+        }
+        else
+        {
+            printf("Error UR 0x%.2x invalid", ARGUMENT);
+            cycle = 0;
+            return;
+        }
+    }
+
+    if (cycle == 5)
+    {
+        ACC ^= BR;
         ZFLAG = ACC ? 0 : 1;
         cycle = 0;
         return;
