@@ -24,7 +24,7 @@ unsigned char counter = 0;
 unsigned char level = 1;
 
 // NOTE: rom memory simulator
-char rom[20] = {0x04, 0x05, 0x07, 0x00, 0x04, 0xff, 0x17, 0x00, 0x02, 0x00};
+char rom[20] = {0x04, 0xAB, 0x18, 0x02, 0x00};
 
 void fetch_cycle()
 {
@@ -178,6 +178,10 @@ int select_instruction(char opcode)
         INSTRUCTION = XRA;
         valid = 1;
         break;
+    case 0x18:
+        INSTRUCTION = SWA;
+        valid = 1;
+        break;
     default:
         printf("\n[Error] - Instruction not found\n");
         level = 0;
@@ -258,6 +262,9 @@ void search_operation(char instruction)
         break;
     case XRA:
         xra_exec();
+        break;
+    case SWA:
+        swa_exec();
         break;
     default:
         break;
@@ -794,6 +801,16 @@ void xra_exec()
     {
         ACC ^= BR;
         ZFLAG = ACC ? 0 : 1;
+        cycle = 0;
+        return;
+    }
+}
+
+void swa_exec()
+{
+    if (cycle == 3)
+    {
+        ACC = (ACC & 0x0F) << 4 | (ACC & 0xF0) >> 4;
         cycle = 0;
         return;
     }

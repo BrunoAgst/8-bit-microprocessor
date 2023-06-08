@@ -32,6 +32,7 @@ The processor can run on computer or raspberry pico.<br>
 | **ANA** | Does the logic and between accumulator and UR       | 0x15 |
 | **ORA** | Does the logic or between accumulator and UR        | 0x16 |
 | **XRA** | Does the logic xor between accumulator and UR       | 0x17 |
+| **SWA** | Reversing the nibbles                               | 0x18 |
 
 <br>
 
