@@ -24,8 +24,7 @@ unsigned char counter = 0;
 unsigned char level = 1;
 
 // NOTE: rom memory simulator
-char rom[20] = {
-    0x04, 0x2F, 0x3F, 0x1F, 0x02, 0x00};
+char rom[20] = {0x00};
 
 void fetch_cycle()
 {

@@ -24,9 +24,9 @@ The processor can run on computer or raspberry pico.<br>
 | **IFC** | Conditional branch instruction if flag c is enabled | 0x0D |
 | **IFZ** | Conditional branch instruction if flag z is enabled | 0x0E |
 | **ITI** | Add ITR value to accumulator                        | 0x0F |
-| **SHR** | Shift right accumulator                             | 0x1F |
-| **SHL** | Shift left accumulator                              | 0x2F |
-| **CPA** | Compares the accumulator with the argument          | 0x3F |
+| **SHR** | Shift right accumulator                             | 0x10 |
+| **SHL** | Shift left accumulator                              | 0x11 |
+| **CPA** | Compares the accumulator with the argument          | 0x12 |
 
 <br>
 

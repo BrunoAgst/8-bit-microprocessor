@@ -15,9 +15,9 @@
 #define IFC 0x0D
 #define IFZ 0x0E
 #define ITI 0x0F
-#define SHR 0x1F
-#define SHL 0x2F
-#define CPA 0x3F
+#define SHR 0x10
+#define SHL 0x11
+#define CPA 0x12
 
 // NOTE: functions
 void print_init();
