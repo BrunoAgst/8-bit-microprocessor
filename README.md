@@ -16,9 +16,9 @@ The processor can run on computer or raspberry pico.<br>
 | **ADD** | Add an argument to the accumulator                  | 0x05 |
 | **SUB** | Subtracts argument from the accumulator             | 0x06 |
 | **STA** | Add accumulator value to UR                         | 0x07 |
-| **AND** | Does the logic and in the accumulator               | 0x08 |
-| **ORL** | Does the logic or in the accumulator                | 0x09 |
-| **XOR** | Does the logic xor in the accumulator               | 0x0A |
+| **AND** | Does the logic and between accumulator and argument | 0x08 |
+| **ORL** | Does the logic or between accumulator and argument  | 0x09 |
+| **XOR** | Does the logic xor between accumulator and argument | 0x0A |
 | **NOT** | Invert the accumulator bits                         | 0x0B |
 | **GTA** | Conditional branch instruction                      | 0x0C |
 | **IFC** | Conditional branch instruction if flag c is enabled | 0x0D |
@@ -29,6 +29,8 @@ The processor can run on computer or raspberry pico.<br>
 | **CPA** | Compares the accumulator with the argument          | 0x12 |
 | **ADA** | Add UR to accumulator                               | 0x13 |
 | **SBA** | Subtracts UR to accumulator                         | 0x14 |
+| **ANA** | Does the logic and between accumulator and UR       | 0x15 |
+| **ORA** | Does the logic or between accumulator and UR        | 0x16 |
 
 <br>
 
