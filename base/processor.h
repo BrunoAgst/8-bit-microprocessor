@@ -20,6 +20,7 @@
 #define CPA 0x12
 #define ADA 0x13
 #define SBA 0x14
+#define ANA 0x15
 
 // NOTE: functions
 void print_init();
@@ -48,4 +49,5 @@ void shr_exec();
 void cpa_exec();
 void ada_exec();
 void sba_exec();
+void ana_exec();
 void print_output();
