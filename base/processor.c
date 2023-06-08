@@ -24,7 +24,7 @@ unsigned char counter = 0;
 unsigned char level = 1;
 
 // NOTE: rom memory simulator
-char rom[20] = {0x00};
+char rom[20] = {0x04, 0x05, 0x07, 0x00, 0x02, 0x04, 0x03, 0x13, 0x00, 0x02, 0x00};
 
 void fetch_cycle()
 {
@@ -146,16 +146,20 @@ int select_instruction(char opcode)
         INSTRUCTION = ITI;
         valid = 1;
         break;
-    case 0x1F:
+    case 0x10:
         INSTRUCTION = SHL;
         valid = 1;
         break;
-    case 0x2F:
+    case 0x11:
         INSTRUCTION = SHR;
         valid = 1;
         break;
-    case 0x3F:
+    case 0x12:
         INSTRUCTION = CPA;
+        valid = 1;
+        break;
+    case 0x13:
+        INSTRUCTION = ADA;
         valid = 1;
         break;
     default:
@@ -223,6 +227,9 @@ void search_operation(char instruction)
         break;
     case CPA:
         cpa_exec();
+        break;
+    case ADA:
+        ada_exec();
         break;
     default:
         break;
@@ -582,6 +589,43 @@ void cpa_exec()
     if (cycle == 5)
     {
         EFLAG = (ACC == BR) ? 1 : 0;
+        cycle = 0;
+        return;
+    }
+}
+
+void ada_exec()
+{
+    if (cycle == 3)
+    {
+        ARGUMENT = rom[counter];
+        counter++;
+        cycle++;
+        return;
+    }
+
+    if (cycle == 4)
+    {
+        if (ARGUMENT >= 0x00 && ARGUMENT < 0x10)
+        {
+            BR = UR[ARGUMENT];
+            ZFLAG = ACC ? 0 : 1;
+            cycle++;
+            return;
+        }
+        else
+        {
+            printf("Error UR 0x%.2x invalid", ARGUMENT);
+            cycle = 0;
+            return;
+        }
+    }
+
+    if (cycle == 5)
+    {
+        CFLAG = (ACC + BR) >> 8;
+        ACC += BR;
+        ZFLAG = ACC ? 0 : 1;
         cycle = 0;
         return;
     }

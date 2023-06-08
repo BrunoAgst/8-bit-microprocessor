@@ -27,6 +27,7 @@ The processor can run on computer or raspberry pico.<br>
 | **SHR** | Shift right accumulator                             | 0x10 |
 | **SHL** | Shift left accumulator                              | 0x11 |
 | **CPA** | Compares the accumulator with the argument          | 0x12 |
+| **ADA** | Add UR to accumulator                               | 0x13 |
 
 <br>
 

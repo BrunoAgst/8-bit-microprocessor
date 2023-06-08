@@ -18,6 +18,7 @@
 #define SHR 0x10
 #define SHL 0x11
 #define CPA 0x12
+#define ADA 0x13
 
 // NOTE: functions
 void print_init();
@@ -44,4 +45,5 @@ void iti_exec();
 void shl_exec();
 void shr_exec();
 void cpa_exec();
+void ada_exec();
 void print_output();
