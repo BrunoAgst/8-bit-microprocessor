@@ -23,16 +23,17 @@ The processor can run on computer or raspberry pico.<br>
 | **GTA** | Conditional branch instruction                      | 0x0C |
 | **IFC** | Conditional branch instruction if flag c is enabled | 0x0D |
 | **IFZ** | Conditional branch instruction if flag z is enabled | 0x0E |
-| **ITI** | Add ITR value to accumulator                        | 0x0F |
-| **SHR** | Shift right accumulator                             | 0x10 |
-| **SHL** | Shift left accumulator                              | 0x11 |
-| **CPA** | Compares the accumulator with the argument          | 0x12 |
-| **ADA** | Add UR to accumulator                               | 0x13 |
-| **SBA** | Subtracts UR to accumulator                         | 0x14 |
-| **ANA** | Does the logic and between accumulator and UR       | 0x15 |
-| **ORA** | Does the logic or between accumulator and UR        | 0x16 |
-| **XRA** | Does the logic xor between accumulator and UR       | 0x17 |
-| **SWA** | Reversing the nibbles                               | 0x18 |
+| **IFE** | Conditional branch instruction if flag e is enabled | 0x0F |
+| **ITI** | Add ITR value to accumulator                        | 0x10 |
+| **SHR** | Shift right accumulator                             | 0x11 |
+| **SHL** | Shift left accumulator                              | 0x12 |
+| **CPA** | Compares the accumulator with the argument          | 0x13 |
+| **ADA** | Add UR to accumulator                               | 0x14 |
+| **SBA** | Subtracts UR to accumulator                         | 0x15 |
+| **ANA** | Does the logic and between accumulator and UR       | 0x16 |
+| **ORA** | Does the logic or between accumulator and UR        | 0x17 |
+| **XRA** | Does the logic xor between accumulator and UR       | 0x18 |
+| **SWA** | Reversing the nibbles                               | 0x19 |
 
 <br>
 

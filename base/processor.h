@@ -14,16 +14,17 @@
 #define GTA 0x0C
 #define IFC 0x0D
 #define IFZ 0x0E
-#define ITI 0x0F
-#define SHR 0x10
-#define SHL 0x11
-#define CPA 0x12
-#define ADA 0x13
-#define SBA 0x14
-#define ANA 0x15
-#define ORA 0x16
-#define XRA 0x17
-#define SWA 0x18
+#define IFE 0x0F
+#define ITI 0x10
+#define SHR 0x11
+#define SHL 0x12
+#define CPA 0x13
+#define ADA 0x14
+#define SBA 0x15
+#define ANA 0x16
+#define ORA 0x17
+#define XRA 0x18
+#define SWA 0x19
 
 // NOTE: functions
 void print_init();
@@ -45,6 +46,7 @@ void oti_exec();
 void gta_exec();
 void ifc_exec();
 void ifz_exec();
+void ife_exec();
 void nop_exec();
 void iti_exec();
 void shl_exec();

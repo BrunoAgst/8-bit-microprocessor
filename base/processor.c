@@ -24,7 +24,7 @@ unsigned char counter = 0;
 unsigned char level = 1;
 
 // NOTE: rom memory simulator
-char rom[20] = {0x04, 0xAB, 0x18, 0x02, 0x00};
+char rom[20] = {0x04, 0xAB, 0x19, 0x02, 0x00};
 
 void fetch_cycle()
 {
@@ -143,11 +143,11 @@ int select_instruction(char opcode)
         valid = 1;
         break;
     case 0x0F:
-        INSTRUCTION = ITI;
+        INSTRUCTION = IFE;
         valid = 1;
         break;
     case 0x10:
-        INSTRUCTION = SHL;
+        INSTRUCTION = ITI;
         valid = 1;
         break;
     case 0x11:
@@ -155,30 +155,34 @@ int select_instruction(char opcode)
         valid = 1;
         break;
     case 0x12:
-        INSTRUCTION = CPA;
+        INSTRUCTION = SHL;
         valid = 1;
         break;
     case 0x13:
-        INSTRUCTION = ADA;
+        INSTRUCTION = CPA;
         valid = 1;
         break;
     case 0x14:
-        INSTRUCTION = SBA;
+        INSTRUCTION = ADA;
         valid = 1;
         break;
     case 0x15:
-        INSTRUCTION = ANA;
+        INSTRUCTION = SBA;
         valid = 1;
         break;
     case 0x16:
-        INSTRUCTION = ORA;
+        INSTRUCTION = ANA;
         valid = 1;
         break;
     case 0x17:
-        INSTRUCTION = XRA;
+        INSTRUCTION = ORA;
         valid = 1;
         break;
     case 0x18:
+        INSTRUCTION = XRA;
+        valid = 1;
+        break;
+    case 0x19:
         INSTRUCTION = SWA;
         valid = 1;
         break;
@@ -534,6 +538,32 @@ void ifz_exec()
     if (cycle == 4)
     {
         if (ZFLAG == 1)
+        {
+            counter = ARGUMENT;
+            cycle = 0;
+            return;
+        }
+        else
+        {
+            cycle = 0;
+            return;
+        }
+    }
+}
+
+void ife_exec()
+{
+    if (cycle == 3)
+    {
+        ARGUMENT = rom[counter];
+        counter++;
+        cycle++;
+        return;
+    }
+
+    if (cycle == 4)
+    {
+        if (EFLAG == 1)
         {
             counter = ARGUMENT;
             cycle = 0;
