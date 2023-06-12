@@ -2,6 +2,11 @@
 #include <stdlib.h>
 #include "processor.h"
 
+// NOTE: stack
+unsigned char stack[10] = {0x00};
+unsigned char *ptr = stack;
+int counter_stack = (sizeof(stack) / sizeof(stack[0])) - 1;
+
 // NOTE: registrars
 unsigned char INSTRUCTION = 0x00;
 unsigned char OTR = 0x00;
@@ -24,7 +29,7 @@ unsigned char counter = 0;
 unsigned char level = 1;
 
 // NOTE: rom memory simulator
-char rom[20] = {0x04, 0xAB, 0x19, 0x02, 0x00};
+char rom[20] = {0x04, 0x00, 0x1A, 0x05, 0x02, 0x07, 0x01, 0x1B, 0x02, 0x00};
 
 void fetch_cycle()
 {
@@ -186,6 +191,14 @@ int select_instruction(char opcode)
         INSTRUCTION = SWA;
         valid = 1;
         break;
+    case 0x1A:
+        INSTRUCTION = PUH;
+        valid = 1;
+        break;
+    case 0x1B:
+        INSTRUCTION = POP;
+        valid = 1;
+        break;
     default:
         printf("\n[Error] - Instruction not found\n");
         level = 0;
@@ -269,6 +282,12 @@ void search_operation(char instruction)
         break;
     case SWA:
         swa_exec();
+        break;
+    case PUH:
+        puh_exec();
+        break;
+    case POP:
+        pop_exec();
         break;
     default:
         break;
@@ -846,6 +865,27 @@ void swa_exec()
     }
 }
 
+void puh_exec()
+{
+    if (cycle == 3)
+    {
+        add_stack(ptr, ACC);
+        cycle = 0;
+        return;
+    }
+}
+
+void pop_exec()
+{
+    if (cycle == 3)
+    {
+        ACC = sub_stack(ptr);
+        ZFLAG = ACC ? 0 : 1;
+        cycle = 0;
+        return;
+    }
+}
+
 void print_output()
 {
     printf("\n******************************\n");
@@ -874,6 +914,11 @@ void print_output()
     printf("CFLAG - 0x%.2x\n", CFLAG);
     printf("ZFLAG - 0x%.2x\n", ZFLAG);
     printf("EFLAG - 0x%.2x\n", EFLAG);
+    printf("\nStack:\n");
+    for (int i = 0; i <= 9; i++)
+    {
+        printf("%.2x\n", stack[i]);
+    }
     printf("\n******************************\n");
 }
 
@@ -895,4 +940,18 @@ void print_init()
     printf("         #     #       #    #  #    #            \n");
     printf("          #####        #####   #    #            \n");
     printf("\n\n");
+}
+
+void add_stack(unsigned char *array, char value)
+{
+    array[counter_stack] = value;
+    counter_stack -= 1;
+}
+
+unsigned char sub_stack(unsigned char *array)
+{
+    counter_stack += 1;
+    unsigned int value = array[counter_stack];
+    array[counter_stack] = 0x00;
+    return value;
 }

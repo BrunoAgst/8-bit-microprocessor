@@ -25,6 +25,8 @@
 #define ORA 0x17
 #define XRA 0x18
 #define SWA 0x19
+#define PUH 0x1A
+#define POP 0x1B
 
 // NOTE: functions
 void print_init();
@@ -58,4 +60,8 @@ void ana_exec();
 void ora_exec();
 void xra_exec();
 void swa_exec();
+void puh_exec();
+void pop_exec();
 void print_output();
+void add_stack(unsigned char *array, char value);
+unsigned char sub_stack(unsigned char *array);
