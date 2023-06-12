@@ -2,34 +2,30 @@
 #include "pico/stdlib.h"
 #include "hardware/gpio.h"
 
-void configureGPIO()
+void configure_gpio()
 {
     stdio_init_all();
 
     gpio_init(SW);
     gpio_pull_up(SW);
 
+    gpio_init(DS_DATA);
+    gpio_set_dir(DS_DATA, GPIO_OUT);
+
+    gpio_init(LATCH);
+    gpio_set_dir(LATCH, GPIO_OUT);
+
+    gpio_init(CLK);
+    gpio_set_dir(CLK, GPIO_OUT);
+
     for (int i = 0; i < 8; i++)
     {
-        gpio_init(OUTPUT_GPIO[i]);
         gpio_init(INPUT_GPIO[i]);
-        gpio_set_dir(OUTPUT_GPIO[i], GPIO_OUT);
         gpio_set_dir(INPUT_GPIO[i], GPIO_IN);
     }
 }
 
-unsigned long int setBitsGPIO(char hex, int *bitwise)
-{
-    unsigned long int mask = 0x1000003;
-
-    for (int i = 0; i < 8; i++)
-    {
-        mask ^= (get_bit8(hex, i) << bitwise[i]);
-    }
-    return mask;
-}
-
-unsigned char getBitsGPIO(unsigned long int hex, int *bitwise)
+unsigned char get_bits_gpio(unsigned long int hex, int *bitwise)
 {
     unsigned char mask = 0x00;
     for (int i = 0; i < 8; i++)
@@ -48,24 +44,21 @@ int get_bit32(unsigned long int hex, int number_bit)
     return 1;
 }
 
-int get_bit8(char hex, int number_bit)
-{
-    if (!(hex & (1 << number_bit)))
-    {
-        return 0;
-    }
-    return 1;
-}
-
-unsigned char getDipValue()
+unsigned char get_dip_value()
 {
     unsigned long int input = gpio_get_all();
-    unsigned char hex = getBitsGPIO(input, bitwiseGet);
+    unsigned char hex = get_bits_gpio(input, INPUT_GPIO);
     return hex;
 }
 
-void setOutput(unsigned char hex)
+void shift_out(unsigned int hex)
 {
-    unsigned long int output = setBitsGPIO(hex, bitwiseSet);
-    gpio_put_all(output);
+    for (int i = 0; i < 8; i++)
+    {
+        gpio_put(CLK, 0);
+        gpio_put(DS_DATA, (hex & (1 << (7 - i))) ? 1 : 0);
+        gpio_put(CLK, 1);
+    }
+    gpio_put(LATCH, 1);
+    gpio_put(LATCH, 0);
 }

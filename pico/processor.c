@@ -24,11 +24,11 @@ unsigned char level = 1;
 
 // NOTE: rom memory simulator
 char rom[20] = {
-    0x0F, 0x05, 0x01, 0x02, 0x00};
+    0x0F, 0x02, 0x00};
 
 void init()
 {
-    configureGPIO();
+    configure_gpio();
 }
 
 void fetch_cycle()
@@ -409,7 +409,7 @@ void oti_exec()
     {
         OTR = ACC;
         print_output();
-        setOutput(OTR);
+        shift_out(OTR);
         cycle = 0;
         return;
     }
@@ -495,7 +495,7 @@ void iti_exec()
 {
     if (cycle == 3)
     {
-        ITR = getDipValue();
+        ITR = get_dip_value();
         cycle++;
         return;
     }

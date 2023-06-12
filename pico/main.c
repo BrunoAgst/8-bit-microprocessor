@@ -5,11 +5,13 @@
 
 void gpio_callback();
 
+const int LED = 25;
+
 int main()
 {
-    gpio_init(25);
-    gpio_set_dir(25, GPIO_OUT);
-    gpio_put(25, true);
+    gpio_init(LED);
+    gpio_set_dir(LED, GPIO_OUT);
+    gpio_put(LED, true);
     printf("\ninitialization...\n");
     init();
 

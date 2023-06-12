@@ -16,12 +16,6 @@
 #define IFZ 0x0E
 #define ITI 0x0F
 
-const unsigned int SW = 16;
-const unsigned int OUTPUT_GPIO[8] = {17, 18, 19, 20, 21, 26, 27, 28};
-const unsigned int INPUT_GPIO[8] = {15, 14, 13, 12, 11, 10, 9, 8};
-int bitwiseSet[8] = {17, 18, 19, 20, 21, 26, 27, 28};
-int bitwiseGet[8] = {15, 14, 13, 12, 11, 10, 9, 8};
-
 // NOTE: functions
 void print_init();
 void fetch_cycle();
