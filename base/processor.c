@@ -29,7 +29,7 @@ unsigned char counter = 0;
 unsigned char level = 1;
 
 // NOTE: rom memory simulator
-char rom[20] = {0x04, 0x00, 0x1A, 0x05, 0x02, 0x07, 0x01, 0x1B, 0x02, 0x00};
+char rom[20] = {0x04, 0x05, 0x1C, 0x06, 0x02, 0x00, 0x05, 0x07, 0x1D};
 
 void fetch_cycle()
 {
@@ -199,6 +199,14 @@ int select_instruction(char opcode)
         INSTRUCTION = POP;
         valid = 1;
         break;
+    case 0x1C:
+        INSTRUCTION = CSR;
+        valid = 1;
+        break;
+    case 0x1D:
+        INSTRUCTION = RET;
+        valid = 1;
+        break;
     default:
         printf("\n[Error] - Instruction not found\n");
         level = 0;
@@ -288,6 +296,12 @@ void search_operation(char instruction)
         break;
     case POP:
         pop_exec();
+        break;
+    case RET:
+        ret_exec();
+        break;
+    case CSR:
+        csr_exec();
         break;
     default:
         break;
@@ -881,6 +895,35 @@ void pop_exec()
     {
         ACC = sub_stack(ptr);
         ZFLAG = ACC ? 0 : 1;
+        cycle = 0;
+        return;
+    }
+}
+
+void csr_exec()
+{
+    if (cycle == 3)
+    {
+        ARGUMENT = rom[counter];
+        counter++;
+        cycle++;
+        return;
+    }
+
+    if (cycle == 4)
+    {
+        add_stack(ptr, counter);
+        counter = ARGUMENT;
+        cycle = 0;
+        return;
+    }
+}
+
+void ret_exec()
+{
+    if (cycle == 3)
+    {
+        counter = sub_stack(ptr);
         cycle = 0;
         return;
     }

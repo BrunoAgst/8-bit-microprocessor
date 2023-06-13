@@ -27,6 +27,8 @@
 #define SWA 0x19
 #define PUH 0x1A
 #define POP 0x1B
+#define CSR 0x1C
+#define RET 0x1D
 
 // NOTE: functions
 void print_init();
@@ -62,6 +64,8 @@ void xra_exec();
 void swa_exec();
 void puh_exec();
 void pop_exec();
+void csr_exec();
+void ret_exec();
 void print_output();
 void add_stack(unsigned char *array, char value);
 unsigned char sub_stack(unsigned char *array);
