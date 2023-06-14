@@ -89,3 +89,7 @@ cmake ..
 ```
 make -j4
 ```
+
+<br>
+
+![](https://media.giphy.com/media/mAKYHG02TDbJtjFieH/giphy.gif)

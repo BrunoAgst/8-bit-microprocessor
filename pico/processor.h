@@ -14,7 +14,21 @@
 #define GTA 0x0C
 #define IFC 0x0D
 #define IFZ 0x0E
-#define ITI 0x0F
+#define IFE 0x0F
+#define ITI 0x10
+#define SHR 0x11
+#define SHL 0x12
+#define CPA 0x13
+#define ADA 0x14
+#define SBA 0x15
+#define ANA 0x16
+#define ORA 0x17
+#define XRA 0x18
+#define SWA 0x19
+#define PUH 0x1A
+#define POP 0x1B
+#define CSR 0x1C
+#define RET 0x1D
 
 // NOTE: functions
 void print_init();
@@ -38,5 +52,20 @@ void ifc_exec();
 void ifz_exec();
 void nop_exec();
 void iti_exec();
+void shl_exec();
+void shr_exec();
+void cpa_exec();
+void ada_exec();
+void sba_exec();
+void ana_exec();
+void ora_exec();
+void xra_exec();
+void swa_exec();
+void puh_exec();
+void pop_exec();
+void csr_exec();
+void ret_exec();
 void print_output();
 void init();
+void add_stack(unsigned char *array, char value);
+unsigned char sub_stack(unsigned char *array);

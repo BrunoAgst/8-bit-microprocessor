@@ -2,6 +2,11 @@
 #include "processor.h"
 #include "pico.c"
 
+// NOTE: stack
+unsigned char stack[10] = {0x00};
+unsigned char *ptr = stack;
+int counter_stack = (sizeof(stack) / sizeof(stack[0])) - 1;
+
 // NOTE: registrars
 unsigned char INSTRUCTION = 0x00;
 unsigned char OTR = 0x00;
@@ -16,6 +21,7 @@ unsigned char UR[10] = {0x00};
 // NOTE: flag registers
 unsigned char CFLAG = 0;
 unsigned char ZFLAG = 0;
+unsigned char EFLAG = 0;
 
 // NOTE: counters
 unsigned char cycle = 0;
@@ -24,7 +30,7 @@ unsigned char level = 1;
 
 // NOTE: rom memory simulator
 char rom[20] = {
-    0x0F, 0x02, 0x00};
+    0x04, 0x00, 0x05, 0x01, 0x02, 0x0E, 0x09, 0x0C, 0x02, 0x06, 0x01, 0x02, 0x0D, 0x02, 0x0C, 0x09};
 
 void init()
 {
@@ -144,7 +150,63 @@ int select_instruction(char opcode)
         valid = 1;
         break;
     case 0x0F:
+        INSTRUCTION = IFE;
+        valid = 1;
+        break;
+    case 0x10:
         INSTRUCTION = ITI;
+        valid = 1;
+        break;
+    case 0x11:
+        INSTRUCTION = SHR;
+        valid = 1;
+        break;
+    case 0x12:
+        INSTRUCTION = SHL;
+        valid = 1;
+        break;
+    case 0x13:
+        INSTRUCTION = CPA;
+        valid = 1;
+        break;
+    case 0x14:
+        INSTRUCTION = ADA;
+        valid = 1;
+        break;
+    case 0x15:
+        INSTRUCTION = SBA;
+        valid = 1;
+        break;
+    case 0x16:
+        INSTRUCTION = ANA;
+        valid = 1;
+        break;
+    case 0x17:
+        INSTRUCTION = ORA;
+        valid = 1;
+        break;
+    case 0x18:
+        INSTRUCTION = XRA;
+        valid = 1;
+        break;
+    case 0x19:
+        INSTRUCTION = SWA;
+        valid = 1;
+        break;
+    case 0x1A:
+        INSTRUCTION = PUH;
+        valid = 1;
+        break;
+    case 0x1B:
+        INSTRUCTION = POP;
+        valid = 1;
+        break;
+    case 0x1C:
+        INSTRUCTION = CSR;
+        valid = 1;
+        break;
+    case 0x1D:
+        INSTRUCTION = RET;
         valid = 1;
         break;
     default:
@@ -202,6 +264,45 @@ void search_operation(char instruction)
         break;
     case ITI:
         iti_exec();
+        break;
+    case SHL:
+        shl_exec();
+        break;
+    case SHR:
+        shr_exec();
+        break;
+    case CPA:
+        cpa_exec();
+        break;
+    case ADA:
+        ada_exec();
+        break;
+    case SBA:
+        sba_exec();
+        break;
+    case ANA:
+        ana_exec();
+        break;
+    case ORA:
+        ora_exec();
+        break;
+    case XRA:
+        xra_exec();
+        break;
+    case SWA:
+        swa_exec();
+        break;
+    case PUH:
+        puh_exec();
+        break;
+    case POP:
+        pop_exec();
+        break;
+    case RET:
+        ret_exec();
+        break;
+    case CSR:
+        csr_exec();
         break;
     default:
         break;
@@ -485,6 +586,32 @@ void ifz_exec()
     }
 }
 
+void ife_exec()
+{
+    if (cycle == 3)
+    {
+        ARGUMENT = rom[counter];
+        counter++;
+        cycle++;
+        return;
+    }
+
+    if (cycle == 4)
+    {
+        if (EFLAG == 1)
+        {
+            counter = ARGUMENT;
+            cycle = 0;
+            return;
+        }
+        else
+        {
+            cycle = 0;
+            return;
+        }
+    }
+}
+
 void nop_exec()
 {
     cycle = 0;
@@ -506,6 +633,315 @@ void iti_exec()
         cycle = 0;
         return;
     }
+}
+
+void shl_exec()
+{
+    if (cycle == 3)
+    {
+        ARGUMENT = rom[counter];
+        counter++;
+        cycle++;
+        return;
+    }
+    if (cycle == 4)
+    {
+        ACC <<= ARGUMENT;
+        ZFLAG = ACC ? 0 : 1;
+        cycle = 0;
+        return;
+    }
+}
+
+void shr_exec()
+{
+    if (cycle == 3)
+    {
+        ARGUMENT = rom[counter];
+        counter++;
+        cycle++;
+        return;
+    }
+    if (cycle == 4)
+    {
+        ACC >>= ARGUMENT;
+        ZFLAG = ACC ? 0 : 1;
+        cycle = 0;
+        return;
+    }
+}
+
+void cpa_exec()
+{
+    if (cycle == 3)
+    {
+        ARGUMENT = rom[counter];
+        counter++;
+        cycle++;
+        return;
+    }
+    if (cycle == 4)
+    {
+        BR = ARGUMENT;
+        cycle++;
+    }
+    if (cycle == 5)
+    {
+        EFLAG = (ACC == BR) ? 1 : 0;
+        cycle = 0;
+        return;
+    }
+}
+
+void ada_exec()
+{
+    if (cycle == 3)
+    {
+        ARGUMENT = rom[counter];
+        counter++;
+        cycle++;
+        return;
+    }
+
+    if (cycle == 4)
+    {
+        if (ARGUMENT >= 0x00 && ARGUMENT < 0x10)
+        {
+            BR = UR[ARGUMENT];
+            cycle++;
+            return;
+        }
+        else
+        {
+            printf("Error UR 0x%.2x invalid", ARGUMENT);
+            cycle = 0;
+            return;
+        }
+    }
+
+    if (cycle == 5)
+    {
+        CFLAG = (ACC + BR) >> 8;
+        ACC += BR;
+        ZFLAG = ACC ? 0 : 1;
+        cycle = 0;
+        return;
+    }
+}
+
+void sba_exec()
+{
+    if (cycle == 3)
+    {
+        ARGUMENT = rom[counter];
+        counter++;
+        cycle++;
+        return;
+    }
+
+    if (cycle == 4)
+    {
+        if (ARGUMENT >= 0x00 && ARGUMENT < 0x10)
+        {
+            BR = UR[ARGUMENT];
+            cycle++;
+            return;
+        }
+        else
+        {
+            printf("Error UR 0x%.2x invalid", ARGUMENT);
+            cycle = 0;
+            return;
+        }
+    }
+
+    if (cycle == 5)
+    {
+        CFLAG = (ACC - BR) >> 8;
+        ACC -= BR;
+        ZFLAG = ACC ? 0 : 1;
+        cycle = 0;
+        return;
+    }
+}
+
+void ana_exec()
+{
+    if (cycle == 3)
+    {
+        ARGUMENT = rom[counter];
+        counter++;
+        cycle++;
+        return;
+    }
+
+    if (cycle == 4)
+    {
+        if (ARGUMENT >= 0x00 && ARGUMENT < 0x10)
+        {
+            BR = UR[ARGUMENT];
+            cycle++;
+            return;
+        }
+        else
+        {
+            printf("Error UR 0x%.2x invalid", ARGUMENT);
+            cycle = 0;
+            return;
+        }
+    }
+
+    if (cycle == 5)
+    {
+        ACC &= BR;
+        ZFLAG = ACC ? 0 : 1;
+        cycle = 0;
+        return;
+    }
+}
+
+void ora_exec()
+{
+    if (cycle == 3)
+    {
+        ARGUMENT = rom[counter];
+        counter++;
+        cycle++;
+        return;
+    }
+
+    if (cycle == 4)
+    {
+        if (ARGUMENT >= 0x00 && ARGUMENT < 0x10)
+        {
+            BR = UR[ARGUMENT];
+            cycle++;
+            return;
+        }
+        else
+        {
+            printf("Error UR 0x%.2x invalid", ARGUMENT);
+            cycle = 0;
+            return;
+        }
+    }
+
+    if (cycle == 5)
+    {
+        ACC |= BR;
+        ZFLAG = ACC ? 0 : 1;
+        cycle = 0;
+        return;
+    }
+}
+
+void xra_exec()
+{
+    if (cycle == 3)
+    {
+        ARGUMENT = rom[counter];
+        counter++;
+        cycle++;
+        return;
+    }
+
+    if (cycle == 4)
+    {
+        if (ARGUMENT >= 0x00 && ARGUMENT < 0x10)
+        {
+            BR = UR[ARGUMENT];
+            cycle++;
+            return;
+        }
+        else
+        {
+            printf("Error UR 0x%.2x invalid", ARGUMENT);
+            cycle = 0;
+            return;
+        }
+    }
+
+    if (cycle == 5)
+    {
+        ACC ^= BR;
+        ZFLAG = ACC ? 0 : 1;
+        cycle = 0;
+        return;
+    }
+}
+
+void swa_exec()
+{
+    if (cycle == 3)
+    {
+        ACC = (ACC & 0x0F) << 4 | (ACC & 0xF0) >> 4;
+        cycle = 0;
+        return;
+    }
+}
+
+void puh_exec()
+{
+    if (cycle == 3)
+    {
+        add_stack(ptr, ACC);
+        cycle = 0;
+        return;
+    }
+}
+
+void pop_exec()
+{
+    if (cycle == 3)
+    {
+        ACC = sub_stack(ptr);
+        ZFLAG = ACC ? 0 : 1;
+        cycle = 0;
+        return;
+    }
+}
+
+void csr_exec()
+{
+    if (cycle == 3)
+    {
+        ARGUMENT = rom[counter];
+        counter++;
+        cycle++;
+        return;
+    }
+
+    if (cycle == 4)
+    {
+        add_stack(ptr, counter);
+        counter = ARGUMENT;
+        cycle = 0;
+        return;
+    }
+}
+
+void ret_exec()
+{
+    if (cycle == 3)
+    {
+        counter = sub_stack(ptr);
+        cycle = 0;
+        return;
+    }
+}
+
+void add_stack(unsigned char *array, char value)
+{
+    array[counter_stack] = value;
+    counter_stack -= 1;
+}
+
+unsigned char sub_stack(unsigned char *array)
+{
+    counter_stack += 1;
+    unsigned int value = array[counter_stack];
+    array[counter_stack] = 0x00;
+    return value;
 }
 
 void print_output()
@@ -535,5 +971,11 @@ void print_output()
     printf("\nFlags:\n");
     printf("CFLAG - 0x%.2x\n", CFLAG);
     printf("ZFLAG - 0x%.2x\n", ZFLAG);
+    printf("EFLAG - 0x%.2x\n", EFLAG);
+    printf("\nStack:\n");
+    for (int i = 0; i <= 9; i++)
+    {
+        printf("%.2x\n", stack[i]);
+    }
     printf("\n******************************\n");
 }
